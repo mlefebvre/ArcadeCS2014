@@ -2,13 +2,15 @@ import random
 from beer import Beer
 from nyan import Nyan
 from healthpack import HealthPack
+from energydrink import EnergyDrink
 from pygame.sprite import Sprite, Group, spritecollide
 
 
 class ObstacleManager:
 
-    obstacle_types = {Beer: 93,
+    obstacle_types = {Beer: 85,
                       Nyan: 5,
+                      EnergyDrink: 3,
                       HealthPack: 2
                       }
     obstacles = []

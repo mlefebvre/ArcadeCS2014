@@ -53,6 +53,15 @@ class Player(Sprite):
 
         #pygame.draw.rect(self.screen, (0, 0, 255), self.rect, 1)
 
+    def grow(self):
+        for i in self.images.keys():
+            for j in range(len(self.images[i])):
+                img = self.images[i][j]
+                w, h = img.get_size()
+                w2 = int(w*1.1)
+                self.images[i][j] = pygame.transform.scale(img, (int(w*1.1), int(h*1.1)))
+
+
     def _load_images(self):
         for f in os.listdir(self.image_directory):
             if f.endswith(".png"):

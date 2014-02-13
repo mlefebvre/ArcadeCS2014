@@ -14,4 +14,4 @@ class NyanCollisionStrategy(CollisionStrategy):
             if type(effect) == "HorizontalTrail":
                 return
 
-        self.machine.player.effects.append(HorizontalTrail(self.machine.player, self.trail_file, self.machine.screen, pygame.time.get_ticks()))
+        self.machine.player.effects.append(HorizontalTrail(self.machine.player, self.trail_file, self.machine.game_surface, pygame.time.get_ticks()))

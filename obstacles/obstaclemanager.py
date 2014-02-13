@@ -3,15 +3,15 @@ from beer import Beer
 from nyan import Nyan
 from healthpack import HealthPack
 from energydrink import EnergyDrink
-from pygame.sprite import Sprite, Group, spritecollide
+from pygame.sprite import Group, spritecollide
 
 
 class ObstacleManager:
 
-    obstacle_types = {Beer: 85,
-                      Nyan: 5,
+    obstacle_types = {Beer: 91,
+                      Nyan: 2,
                       EnergyDrink: 3,
-                      HealthPack: 2
+                      HealthPack: 4
                       }
     obstacles = []
     counter = 0

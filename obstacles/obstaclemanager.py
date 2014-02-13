@@ -31,7 +31,7 @@ class ObstacleManager:
         delete_list = []
 
         for obstacle in self.obstacles:
-            if obstacle.y > self.height:
+            if obstacle.y > self.height and obstacle.alive():
                 delete_list.append(obstacle)
             else:
                 obstacle.update(time_passed)

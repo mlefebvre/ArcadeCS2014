@@ -1,10 +1,13 @@
 import pygame
+from pygame.surface import Surface
 from player import Player
 from obstacles.obstaclemanager import ObstacleManager
 from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
 
-WIDTH = 640
-HEIGHT = 480
+WINDOW_WIDTH = 640
+WINDOW_HEIGHT = 480
+GAME_WIDTH = 640
+GAME_HEIGHT = 480
 FPS = 60
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
@@ -35,10 +38,10 @@ class Machine:
         self.obstacle_manager = None
 
     def start(self):
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT), MODE)
-
-        self.player = Player(self.screen, (WIDTH/2, HEIGHT*0.8), PLAYER_SPEED)
-        self.obstacle_manager = ObstacleManager(self.screen,
+        self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), MODE)
+        self.game_surface = Surface((GAME_WIDTH, GAME_HEIGHT))
+        self.player = Player(self.game_surface, (GAME_WIDTH/2, GAME_HEIGHT*0.8), PLAYER_SPEED)
+        self.obstacle_manager = ObstacleManager(self.game_surface,
                                                 OBSTACLE_BASE_SPEED,
                                                 MAX_OBSTACLES,
                                                 CollisionStrategyFactory(self, self.player),
@@ -90,10 +93,12 @@ class Machine:
         self.obstacle_manager.update(self.time_passed)
         self.obstacle_manager.obstacle_collide(self.player)
 
+        self.screen.blit(self.game_surface, (0,0))
+
     def _draw_background(self):
         if not self.background:
             self.background = pygame.image.load(self.background_file)
-        self.screen.blit(self.background, (0, 0))
+        self.game_surface.blit(self.background, (0, 0))
 
 
 

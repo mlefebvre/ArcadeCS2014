@@ -23,6 +23,7 @@ RED = (255, 0, 0)
 
 class Machine:
     background_file = 'images/background.png'
+    controls_reversed = False
 
     def __init__(self):
         self.done = False
@@ -44,8 +45,7 @@ class Machine:
 
         while not self.done:
             key = pygame.key.get_pressed()
-            left = key[LEFT_KEY] == 1
-            right = key[RIGHT_KEY] == 1
+            left, right = self._get_movement(key)
 
             if key[pygame.K_ESCAPE]:
                 self.done = True
@@ -53,6 +53,19 @@ class Machine:
             pygame.display.flip()
             self.time_passed = self.clock.tick(FPS)
         pygame.quit()
+
+    def reverse_controls(self, reversed):
+        self.controls_reversed = reversed
+
+    def _get_movement(self, key):
+        left = key[LEFT_KEY] == 1
+        right = key[RIGHT_KEY] == 1
+
+        if self.controls_reversed:
+            left = not left
+            right = not right
+
+        return left, right
 
     def _tick(self, left, right):
         for event in pygame.event.get():

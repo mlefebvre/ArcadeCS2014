@@ -1,13 +1,15 @@
 import random
 from beer import Beer
 from nyan import Nyan
+from healthpack import HealthPack
 from pygame.sprite import Sprite, Group, spritecollide
 
 
 class ObstacleManager:
 
-    obstacle_types = {Beer: 95,
-                      Nyan: 5}
+    obstacle_types = {Beer: 93.5,
+                      Nyan: 5,
+                      HealthPack: 1.5}
     obstacles = []
     counter = 0
 
@@ -61,4 +63,4 @@ class ObstacleManager:
         for c in collisions:
             self.obstacles.remove(c)
             c.kill()
-            self.collision_strategy_factory.get_strategy(type(c)).on_collision()
+            self.collision_strategy_factory.get_strategy(c).on_collision()

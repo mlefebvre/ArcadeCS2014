@@ -1,5 +1,5 @@
-import pygame
 from pygame.sprite import Sprite
+
 
 class Obstacle(Sprite):
     images = []

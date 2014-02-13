@@ -5,13 +5,12 @@ TRAIL_SIZE = 50
 
 
 class Trail(Effect):
-    trails = []
-
     def __init__(self, entity, image, screen):
         Effect.__init__(self,
                         entity,
                         pygame.image.load(image).convert_alpha(),
                         screen)
+        self.trails = []
 
     def blit(self):
         if len(self.trails) == TRAIL_SIZE:
@@ -24,3 +23,8 @@ class Trail(Effect):
             # Ca ne marche pas?
             #part.image.set_alpha(part.image.get_alpha() - part.fade_speed)
             self.screen.blit(trail[0], draw_pos)
+
+    def kill(self):
+        self.trails = []
+
+        super(Trail, self).kill()

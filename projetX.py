@@ -41,7 +41,8 @@ class Machine:
         self.obstacle_manager = ObstacleManager(self.screen,
                                                 OBSTACLE_BASE_SPEED,
                                                 MAX_OBSTACLES,
-                                                CollisionStrategyFactory(self))
+                                                CollisionStrategyFactory(self),
+                                                self.player)
 
         while not self.done:
             key = pygame.key.get_pressed()

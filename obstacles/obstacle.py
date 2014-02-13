@@ -4,21 +4,20 @@ import pygame
 class Obstacle(Sprite):
     images = []
 
-    def __init__(self, image, screen, position, speed):
+    def __init__(self, image, screen, position, speed, player):
         Sprite.__init__(self)
         self.x = position[0]
         self.y = position[1]
-        self.last_y = self.y
         self.speed = speed
         self.screen = screen
         self.image = image
+        self.player = player
 
         w, h = self.image.get_size()
         self.rect = pygame.Rect(self.x, self.y, w, h)
 
     def update(self, time_passed):
         displacement = self.speed * time_passed
-        self.last_y = self.y
         self.y += displacement
 
         w, h = self.image.get_size()

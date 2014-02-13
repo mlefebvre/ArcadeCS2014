@@ -7,6 +7,7 @@ COLLISION_PADDING = 0.3  # %
 class Player(Sprite):
     image_directory = 'images/player/'
     images = {-1: [], 1: []}
+
     imageOrientation = 1
     counter = 0
     still_counter = 0

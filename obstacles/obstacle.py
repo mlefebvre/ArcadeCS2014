@@ -4,6 +4,7 @@ import pygame
 
 class Obstacle(Sprite):
     images = []
+    effects = []
 
     def __init__(self, image, screen, position, speed, player):
         Sprite.__init__(self)
@@ -32,6 +33,12 @@ class Obstacle(Sprite):
 
     def _change_rect(self, x, y, w, h):
         self.rect = pygame.Rect(x, y, w, h)
+
+    def kill(self):
+        for effect in self.effects:
+            effect.kill()
+
+        super(Obstacle, self).kill()
 
 
 

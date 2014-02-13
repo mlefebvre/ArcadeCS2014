@@ -1,15 +1,12 @@
 import pygame
 import math
 from effects.Trail import Trail
-
 from obstacles.obstacle import Obstacle
 
-TRAIL_SIZE = 50
 
 class Nyan(Obstacle):
-    rainbow = []
     image_file = 'images/obstacles/nyan.png'
-    trail_file = 'images/trail.png'
+    trail_file = 'images/nyan_trail_obstacle.png'
 
     def __init__(self, screen, position, speed, player):
         Obstacle.__init__(self,
@@ -18,23 +15,8 @@ class Nyan(Obstacle):
                           position,
                           speed,
                           player)
-
+        self.effects.append(Trail(self, self.trail_file, self.screen))
         self.last_x = self.x
-
-    def trail(self):
-        if len(self.rainbow) == TRAIL_SIZE:
-            self.rainbow.pop(0)
-
-        self.rainbow.append(Trail(pygame.image.load(self.trail_file).convert_alpha(),
-                                self.screen,
-                                [self.x, self.y + 10],
-                                15))
-
-        for part in self.rainbow:
-            draw_pos = self.image.get_rect().move(part.x, part.y)
-            # Ca ne marche pas?
-            #part.image.set_alpha(part.image.get_alpha() - part.fade_speed)
-            self.screen.blit(part.image, draw_pos)
 
     def update(self, time_passed):
         displacement = 0.5 * self.speed * time_passed
@@ -46,10 +28,5 @@ class Nyan(Obstacle):
         w, h = self.image.get_size()
         self._change_rect(self.x, self.y, w, h)
 
-        if self.alive():
-            self.trail()
-
-    def kill(self):
-        del self.rainbow[:]
-
-        super(Nyan, self).kill()
+        for effect in self.effects:
+            effect.blit()

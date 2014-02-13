@@ -13,13 +13,14 @@ from obstacles.energydrink import EnergyDrink
 class CollisionStrategyFactory:
     strategies = {}
 
-    def __init__(self, machine):
+    def __init__(self, machine, player):
         self.machine = machine
-        self.strategies[Beer] = BeerCollisionStrategy(machine)
-        self.strategies[Nyan] = NyanCollisionStrategy(machine)
-        self.strategies[HealthPack] = HealthPackCollisionStrategy(machine)
-        self.strategies[EnergyDrink] = EnergyDrinkCollisionStrategy(machine)
-        self.no_collision_strategy = CollisionStrategy(machine)
+        self.player = player
+        self.strategies[Beer] = BeerCollisionStrategy(machine, player)
+        self.strategies[Nyan] = NyanCollisionStrategy(machine, player)
+        self.strategies[HealthPack] = HealthPackCollisionStrategy(machine, player)
+        self.strategies[EnergyDrink] = EnergyDrinkCollisionStrategy(machine, player)
+        self.no_collision_strategy = CollisionStrategy(machine, player)
 
     def get_strategy(self, object):
         t = type(object)

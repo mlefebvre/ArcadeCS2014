@@ -5,12 +5,12 @@ import pygame
 class Obstacle(Sprite):
     images = []
 
-    def __init__(self, image, screen, position, fall_speed, player):
+    def __init__(self, image, screen, position, speed, player):
         Sprite.__init__(self)
         self.x = position[0]
         self.y = position[1]
         self.last_y = self.y
-        self.fall_speed = fall_speed
+        self.speed = speed
         self.screen = screen
         self.image = image
         self.player = player

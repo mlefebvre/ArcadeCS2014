@@ -11,12 +11,12 @@ class Nyan(Obstacle):
     image_file = 'images/obstacles/nyan.png'
     trail_file = 'images/trail.png'
 
-    def __init__(self, screen, position, fall_speed, player):
+    def __init__(self, screen, position, speed, player):
         Obstacle.__init__(self,
                           pygame.image.load(self.image_file).convert_alpha(),
                           screen,
                           position,
-                          fall_speed,
+                          speed,
                           player)
 
         self.last_x = self.x
@@ -37,7 +37,7 @@ class Nyan(Obstacle):
             self.screen.blit(part.image, draw_pos)
 
     def update(self, time_passed):
-        displacement = 0.5 * self.fall_speed * time_passed
+        displacement = 0.5 * self.speed * time_passed
         self.last_y = self.y
         self.last_x = self.x
         self.y += displacement

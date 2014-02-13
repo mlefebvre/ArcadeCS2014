@@ -11,6 +11,8 @@ PLAYER_SPEED = 0.3
 MODE = 0  # pygame.FULLSCREEN
 MAX_OBSTACLES = 10
 OBSTACLE_BASE_SPEED = 0.3
+ACCELERATION = 0.0001
+DEBUG = True
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -62,13 +64,13 @@ class Machine:
             elif right:
                 direction = 1
 
-        self.obstacle_manager.obstacle_speed += 0.0001
-        self.obstacle_manager.create_obstacle()
-
-        self.obstacle_manager.update(self.time_passed)
-
         self.player.update(self.time_passed, direction)
         self.player.blit()
+
+        self.obstacle_manager.obstacle_speed += ACCELERATION
+        self.obstacle_manager.create_obstacle()
+        self.obstacle_manager.update(self.time_passed)
+        self.obstacle_manager.obstacle_collide(self.player)
 
     def _draw_background(self):
         if not self.background:

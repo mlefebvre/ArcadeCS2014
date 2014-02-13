@@ -2,6 +2,7 @@ import os
 import pygame
 from pygame.sprite import Sprite
 
+COLLISION_PADDING = 0.3  # %
 
 class Player(Sprite):
     image_directory = 'images/player/'
@@ -11,7 +12,6 @@ class Player(Sprite):
     still_counter = 0
     image_id = 0
 
-
     def __init__(self, screen, position, speed):
         Sprite.__init__(self)
         self.x = position[0]
@@ -20,7 +20,7 @@ class Player(Sprite):
         self.screen = screen
         self._load_images()
         w, h = self.images[self.imageOrientation][self.image_id].get_size()
-        self.rect = pygame.Rect(self.x, self.y, w, h)
+        self._change_rect(self.x, self.y, w, h)
 
     def update(self, time_passed, direction):
 
@@ -45,16 +45,25 @@ class Player(Sprite):
 
         if new_x > bounds.left and new_x + w < bounds.right:
             self.x = new_x
-            self.rect = pygame.Rect(self.x, self.y, w, h)
+            self._change_rect(self.x, self.y, w, h)
 
     def blit(self):
         draw_pos = self.images[self.imageOrientation][self.image_id].get_rect().move(self.x, self.y)
         self.screen.blit(self.images[self.imageOrientation][self.image_id], draw_pos)
+
+        #pygame.draw.rect(self.screen, (0, 0, 255), self.rect, 1)
 
     def _load_images(self):
         for f in os.listdir(self.image_directory):
             if f.endswith(".png"):
                 self.images[1].append(pygame.image.load(self.image_directory + f).convert_alpha())
                 self.images[-1].append(pygame.transform.flip(self.images[1][-1], True, False))
+
+    def _change_rect(self, x, y, w, h):
+        self.rect = pygame.Rect(x + w * COLLISION_PADDING,
+                                y + h * COLLISION_PADDING,
+                                w - 2 * w * COLLISION_PADDING,
+                                h - 2 * h * COLLISION_PADDING)
+
 
 

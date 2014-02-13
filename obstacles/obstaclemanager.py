@@ -1,10 +1,14 @@
-from random import randint, random
+import random
 from beer import Beer
-
+from nyan import Nyan
+from pygame.sprite import Sprite, Group, spritecollide
+from collections import OrderedDict
 
 class ObstacleManager:
-    obstacles = []
 
+    obstacle_types = {Beer: 95,
+                      Nyan: 5}
+    obstacles = []
     counter = 0
 
     def __init__(self, screen, obstacle_speed, max_obstacles):
@@ -14,6 +18,7 @@ class ObstacleManager:
         self.width = rect.width
         self.height = rect.height
         self.obstacle_speed = obstacle_speed
+        self.obstacle_group = Group()
 
     def update(self, time_passed):
         delete_list = []
@@ -33,8 +38,25 @@ class ObstacleManager:
         if len(self.obstacles) <= self.max_obstacles:
             self.counter += 1
             if self.counter % 10 == 0:
-                obstacle = Beer(self.screen,
-                                (randint(0, self.width), -40),
-                                self.obstacle_speed * (1 + (random()-0.5) * 0.2))
+                obstacle = self.__select_obstacle_type()(self.screen,
+                                (random.randint(0, self.width), -40),
+                                self.obstacle_speed * (1 + (random.random()-0.5) * 0.2))
 
                 self.obstacles.append(obstacle)
+                self.obstacle_group.add(obstacle)
+
+    def __select_obstacle_type(self):
+        total = sum(w for c, w in self.obstacle_types.items())
+        r = random.uniform(0, total)
+        upto = 0
+        for c, w in self.obstacle_types.items():
+            if upto + w > r:
+                return c
+            upto += w
+
+    def obstacle_collide(self, player):
+        collisions = spritecollide(player, self.obstacle_group, True)
+
+        for c in collisions:
+            self.obstacles.remove(c)
+            c.kill()

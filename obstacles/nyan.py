@@ -1,6 +1,7 @@
+import random
 import pygame
 import math
-from effects.Trail import Trail
+from effects.VerticalTrail import VerticalTrail
 from obstacles.obstacle import Obstacle
 
 
@@ -15,15 +16,16 @@ class Nyan(Obstacle):
                           position,
                           speed,
                           player)
-        self.effects.append(Trail(self, self.trail_file, self.screen))
+        self.effects.append(VerticalTrail(self, self.trail_file, self.screen))
         self.last_x = self.x
+        self.amplitude = random.randint(30,120)
 
     def update(self, time_passed):
         displacement = 0.5 * self.speed * time_passed
         self.last_y = self.y
         self.last_x = self.x
         self.y += displacement
-        self.x += 5 * math.cos((self.y + 40) / 100)
+        self.x += 5 * math.cos((self.y + 40) / self.amplitude)
 
         w, h = self.image.get_size()
         self._change_rect(self.x, self.y, w, h)

@@ -44,7 +44,7 @@ class Machine:
         self.obstacle_manager = ObstacleManager(self.game_surface,
                                                 OBSTACLE_BASE_SPEED,
                                                 MAX_OBSTACLES,
-                                                CollisionStrategyFactory(self, self.player),
+                                                CollisionStrategyFactory(self),
                                                 self.player)
 
         while not self.done:

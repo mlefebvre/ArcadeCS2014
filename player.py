@@ -2,13 +2,15 @@ import os
 import pygame
 from pygame.sprite import Sprite
 
-COLLISION_PADDING = 0.3  # %
+COLLISION_PADDING = 0.3   # %
+EFFECTS_DURATION = 10000  # ms
+
 
 class Player(Sprite):
     image_directory = 'images/player/'
     images = {-1: [], 1: []}
-
-    imageOrientation = 1
+    effects = []
+    orientation = 1
     counter = 0
     still_counter = 0
     image_id = 0
@@ -20,7 +22,7 @@ class Player(Sprite):
         self.speed = speed
         self.screen = screen
         self._load_images()
-        w, h = self.images[self.imageOrientation][self.image_id].get_size()
+        w, h = self.images[self.orientation][self.image_id].get_size()
         self._change_rect(self.x, self.y, w, h)
 
     def update(self, time_passed, direction):
@@ -29,28 +31,37 @@ class Player(Sprite):
             self.still_counter = 0
             self.counter += 1
             if self.counter % 5 == 0:
-                self.image_id = (self.image_id + 1) % len(self.images[self.imageOrientation])
+                self.image_id = (self.image_id + 1) % len(self.images[self.orientation])
         else:
             self.still_counter += 1
             if self.still_counter > 5:
                 self.image_id = 0
 
-        if self.imageOrientation != direction and direction != 0:
-            self.imageOrientation = -self.imageOrientation
+        if self.orientation != direction and direction != 0:
+            self.orientation = -self.orientation
 
         displacement = direction * self.speed * time_passed
 
         bounds = self.screen.get_rect()
         new_x = self.x + displacement
-        w, h = self.images[self.imageOrientation][self.image_id].get_size()
+        w, h = self.images[self.orientation][self.image_id].get_size()
 
         if new_x > bounds.left and new_x + w < bounds.right:
             self.x = new_x
             self._change_rect(self.x, self.y, w, h)
 
+        for effect in self.effects:
+            print effect.start_time + EFFECTS_DURATION
+            print pygame.time.get_ticks()
+            if effect.start_time + EFFECTS_DURATION < pygame.time.get_ticks():
+                effect.kill()
+                self.effects.remove(effect)
+            else:
+                effect.blit()
+
     def blit(self):
-        draw_pos = self.images[self.imageOrientation][self.image_id].get_rect().move(self.x, self.y)
-        self.screen.blit(self.images[self.imageOrientation][self.image_id], draw_pos)
+        draw_pos = self.images[self.orientation][self.image_id].get_rect().move(self.x, self.y)
+        self.screen.blit(self.images[self.orientation][self.image_id], draw_pos)
 
         #pygame.draw.rect(self.screen, (0, 0, 255), self.rect, 1)
 

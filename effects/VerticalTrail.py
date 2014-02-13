@@ -4,7 +4,7 @@ from effects.Effect import Effect
 TRAIL_SIZE = 50
 
 
-class Trail(Effect):
+class VerticalTrail(Effect):
     def __init__(self, entity, image, screen):
         Effect.__init__(self,
                         entity,
@@ -20,11 +20,9 @@ class Trail(Effect):
 
         for trail in self.trails:
             draw_pos = self.image.get_rect().move(trail[1], trail[2])
-            # Ca ne marche pas?
-            #part.image.set_alpha(part.image.get_alpha() - part.fade_speed)
             self.screen.blit(trail[0], draw_pos)
 
     def kill(self):
         self.trails = []
 
-        super(Trail, self).kill()
+        super(VerticalTrail, self).kill()

@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from obstacles.obstaclemanager import ObstacleManager
+from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
 
 WIDTH = 640
 HEIGHT = 480
@@ -36,7 +37,10 @@ class Machine:
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT), MODE)
 
         self.player = Player(self.screen, (WIDTH/2, HEIGHT*0.8), PLAYER_SPEED)
-        self.obstacle_manager = ObstacleManager(self.screen, OBSTACLE_BASE_SPEED, MAX_OBSTACLES)
+        self.obstacle_manager = ObstacleManager(self.screen,
+                                                OBSTACLE_BASE_SPEED,
+                                                MAX_OBSTACLES,
+                                                CollisionStrategyFactory(self))
 
         while not self.done:
             key = pygame.key.get_pressed()

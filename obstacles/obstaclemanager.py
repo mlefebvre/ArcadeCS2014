@@ -2,7 +2,7 @@ import random
 from beer import Beer
 from nyan import Nyan
 from pygame.sprite import Sprite, Group, spritecollide
-from collections import OrderedDict
+
 
 class ObstacleManager:
 
@@ -11,7 +11,7 @@ class ObstacleManager:
     obstacles = []
     counter = 0
 
-    def __init__(self, screen, obstacle_speed, max_obstacles):
+    def __init__(self, screen, obstacle_speed, max_obstacles, collision_strategy_factory):
         self.max_obstacles = max_obstacles
         self.screen = screen
         rect = self.screen.get_rect()
@@ -19,6 +19,7 @@ class ObstacleManager:
         self.height = rect.height
         self.obstacle_speed = obstacle_speed
         self.obstacle_group = Group()
+        self.collision_strategy_factory = collision_strategy_factory
 
     def update(self, time_passed):
         delete_list = []
@@ -60,3 +61,4 @@ class ObstacleManager:
         for c in collisions:
             self.obstacles.remove(c)
             c.kill()
+            self.collision_strategy_factory.get_strategy(type(c)).on_collision()

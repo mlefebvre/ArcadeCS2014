@@ -30,16 +30,7 @@ class Obstacle(Sprite):
         #pygame.draw.rect(self.screen, (255, 0, 0), self.rect, 1)
 
     def _change_rect(self, x, y, w, h):
-        if y > self.last_y + h:  # Pour eviter que l'obstacle passe d'un bord a un autre du joueur sans entrer en collision avec
-            self.rect = pygame.Rect(x,
-                                    y - (y - self.last_y) + h,
-                                    w,
-                                    h + y - (self.last_y + h))
-        else:
-            self.rect = pygame.Rect(x,
-                                    y,
-                                    w,
-                                    h)
+        self.rect = pygame.Rect(x, y, w, h)
 
 
 

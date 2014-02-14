@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8
+
 import math
 import pygame
 from effects.Effect import Effect

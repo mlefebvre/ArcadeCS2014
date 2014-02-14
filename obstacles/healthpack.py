@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8
+
 import pygame
 from vec2d import vec2d
 from obstacles.obstacle import Obstacle

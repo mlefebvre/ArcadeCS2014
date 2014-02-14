@@ -1,13 +1,17 @@
+#!/usr/bin/env python
+#coding: utf8
+
 import pygame
 from pygame.surface import Surface
 from player import Player
 from obstacles.obstaclemanager import ObstacleManager
 from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
 from gameboard import GameBoard
+from scoreboard import ScoreBoard
 
-WINDOW_WIDTH = 640
-WINDOW_HEIGHT = 640
-GAME_SIZE = 640
+WINDOW_WIDTH = 1080
+WINDOW_HEIGHT = 900
+GAME_SIZE = 750
 FPS = 60
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
@@ -24,7 +28,7 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
 
-class Machine:
+class Game:
     controls_reversed = False
 
     def __init__(self):
@@ -38,6 +42,7 @@ class Machine:
     def start(self):
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), MODE)
         self.gameboard = GameBoard((GAME_SIZE, GAME_SIZE))
+        self.scoreboard = ScoreBoard((WINDOW_WIDTH - GAME_SIZE, WINDOW_HEIGHT))
         self.player = Player(self.gameboard, (GAME_SIZE/2, GAME_SIZE*0.8), PLAYER_SPEED)
         self.obstacle_manager = ObstacleManager(self.gameboard,
                                                 OBSTACLE_BASE_SPEED,
@@ -89,8 +94,8 @@ class Machine:
         self.obstacle_manager.obstacle_collide(self.player)
 
         self.gameboard.update(self.time_passed)
-        self.screen.blit(self.gameboard.render(), (0, 0))
-
+        self.screen.blit(self.gameboard.render(), (0, WINDOW_HEIGHT - GAME_SIZE))
+        self.screen.blit(self.scoreboard.render(), (GAME_SIZE, 0))
 if __name__ == "__main__":
-    machine = Machine()
-    machine.start()
+    game = Game()
+    game.start()

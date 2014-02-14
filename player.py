@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8
+
 import os
 import pygame
 from pygame.sprite import Sprite

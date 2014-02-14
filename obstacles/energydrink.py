@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8
+
 import pygame
 
 from obstacles.obstacle import Obstacle

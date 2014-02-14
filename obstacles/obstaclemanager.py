@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8
+
 import random
 from beer import Beer
 from nyan import Nyan

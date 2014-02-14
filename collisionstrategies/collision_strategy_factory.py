@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#coding: utf8
+
 from beer_collision_strategy import BeerCollisionStrategy
 from nyan_collision_strategy import NyanCollisionStrategy
 from healthpack_collision_strategy import HealthPackCollisionStrategy
@@ -15,14 +18,14 @@ from obstacles.vodka import Vodka
 class CollisionStrategyFactory:
     strategies = {}
 
-    def __init__(self, machine):
-        self.machine = machine
-        self.strategies[Beer] = BeerCollisionStrategy(machine)
-        self.strategies[Nyan] = NyanCollisionStrategy(machine)
-        self.strategies[HealthPack] = HealthPackCollisionStrategy(machine)
-        self.strategies[EnergyDrink] = EnergyDrinkCollisionStrategy(machine)
-        self.strategies[Vodka] = VodkaCollisionStrategy(machine)
-        self.no_collision_strategy = CollisionStrategy(machine)
+    def __init__(self, game):
+        self.game = game
+        self.strategies[Beer] = BeerCollisionStrategy(game)
+        self.strategies[Nyan] = NyanCollisionStrategy(game)
+        self.strategies[HealthPack] = HealthPackCollisionStrategy(game)
+        self.strategies[EnergyDrink] = EnergyDrinkCollisionStrategy(game)
+        self.strategies[Vodka] = VodkaCollisionStrategy(game)
+        self.no_collision_strategy = CollisionStrategy(game)
 
     def get_strategy(self, object):
         t = type(object)

@@ -7,10 +7,11 @@ from pygame.surface import Surface
 class ScoreBoard(Surface):
 
     score_file = 'images/menus/scoreboard/score.png'
-    score_image = None
-
+    line_file = 'images/menus/scoreboard/rainbow.png'
     number_folder = 'images/menus/scoreboard/'
 
+    score_image = None
+    line_image = None
     number_images = {}
 
     def __init__(self, size, score_manager):
@@ -26,8 +27,15 @@ class ScoreBoard(Surface):
     def render(self):
         self.fill((0, 0, 0))
 
-        self.blit(self.score_image, self.score_image.get_rect().move(0, self.height * 0.10))
-        self._display_score(self.score_manager.get_score(), self.height * 0.17)
+        i = 0.015
+        self.blit(self.line_image, self.line_image.get_rect().move(15, self.height * i))
+        i += 0.01
+        self.blit(self.score_image, self.score_image.get_rect().move(0, self.height * i))
+        i += 0.07
+        self._display_score(self.score_manager.get_score(), self.height * i)
+        i += 0.055
+        self.blit(self.line_image, self.line_image.get_rect().move(15, self.height * i))
+
         return self
 
     def _display_score(self, score, y):
@@ -51,6 +59,7 @@ class ScoreBoard(Surface):
 
     def _load_images(self):
         self.score_image = pygame.image.load(self.score_file)
+        self.line_image = pygame.image.load(self.line_file)
 
         for i in range(10):
             self.number_images[i] = pygame.image.load(self.number_folder + str(i) + ".png")

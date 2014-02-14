@@ -9,14 +9,14 @@ class Nyan(Obstacle):
     image_file = 'images/obstacles/nyan.png'
     trail_file = 'images/nyan_trail_obstacle.png'
 
-    def __init__(self, screen, position, speed, player):
+    def __init__(self, gameboard, position, speed, player):
         Obstacle.__init__(self,
                           pygame.image.load(self.image_file).convert_alpha(),
-                          screen,
+                          gameboard,
                           position,
                           speed,
                           player)
-        self.effects.append(VerticalTrail(self, self.trail_file, self.screen))
+        self.effects.append(VerticalTrail(self, self.trail_file, self.gameboard))
         self.last_x = self.x
         self.amplitude = random.randint(30,120)
 

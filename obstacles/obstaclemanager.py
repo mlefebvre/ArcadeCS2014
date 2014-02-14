@@ -9,10 +9,10 @@ from pygame.sprite import Group, spritecollide
 
 class ObstacleManager:
 
-    obstacle_types = {Beer: 85,
-                      Nyan: 5,
+    obstacle_types = {Beer: 91,
+                      Nyan: 2,
                       EnergyDrink: 3,
-                      HealthPack: 2,
+                      HealthPack: 4,
                       Vodka: 2
                       }
     obstacles = []

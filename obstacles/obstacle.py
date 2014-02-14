@@ -5,13 +5,13 @@ import pygame
 class Obstacle(Sprite):
     images = []
 
-    def __init__(self, image, screen, position, speed, player):
+    def __init__(self, image, gameboard, position, speed, player):
         Sprite.__init__(self)
         self.x = position[0]
         self.y = position[1]
         self.last_y = self.y
         self.speed = speed
-        self.screen = screen
+        self.gameboard = gameboard
         self.image = image
         self.player = player
         self.effects = []
@@ -28,8 +28,7 @@ class Obstacle(Sprite):
 
     def blit(self):
         draw_pos = self.image.get_rect().move(self.x, self.y)
-        self.screen.blit(self.image, draw_pos)
-        #pygame.draw.rect(self.screen, (255, 0, 0), self.rect, 1)
+        self.gameboard.blit(self.image, draw_pos)
 
     def _change_rect(self, x, y, w, h):
         self.rect = pygame.Rect(x, y, w, h)

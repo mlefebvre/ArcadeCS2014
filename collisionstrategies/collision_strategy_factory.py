@@ -2,12 +2,14 @@ from beer_collision_strategy import BeerCollisionStrategy
 from nyan_collision_strategy import NyanCollisionStrategy
 from healthpack_collision_strategy import HealthPackCollisionStrategy
 from energydrink_collision_strategy import EnergyDrinkCollisionStrategy
+from vodka_collision_strategy import VodkaCollisionStrategy
 from collision_strategy import CollisionStrategy
 
 from obstacles.beer import Beer
 from obstacles.nyan import Nyan
 from obstacles.healthpack import HealthPack
 from obstacles.energydrink import EnergyDrink
+from obstacles.vodka import Vodka
 
 
 class CollisionStrategyFactory:
@@ -19,6 +21,7 @@ class CollisionStrategyFactory:
         self.strategies[Nyan] = NyanCollisionStrategy(machine)
         self.strategies[HealthPack] = HealthPackCollisionStrategy(machine)
         self.strategies[EnergyDrink] = EnergyDrinkCollisionStrategy(machine)
+        self.strategies[Vodka] = VodkaCollisionStrategy(machine)
         self.no_collision_strategy = CollisionStrategy(machine)
 
     def get_strategy(self, object):

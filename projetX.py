@@ -90,7 +90,7 @@ class Machine:
         self.obstacle_manager.obstacle_collide(self.player)
 
         self.gameboard.update(self.time_passed)
-        self.screen.blit(self.gameboard, (0, 0))
+        self.screen.blit(self.gameboard.render(), (0, 0))
 
 if __name__ == "__main__":
     machine = Machine()

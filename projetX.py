@@ -3,6 +3,7 @@ from pygame.surface import Surface
 from player import Player
 from obstacles.obstaclemanager import ObstacleManager
 from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
+from gameboard import GameBoard
 
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
@@ -25,7 +26,6 @@ RED = (255, 0, 0)
 
 
 class Machine:
-    background_file = 'images/background.png'
     controls_reversed = False
 
     def __init__(self):
@@ -34,18 +34,19 @@ class Machine:
         self.screen = None
         self.time_passed = 0
         self.player = None
-        self.background = None
         self.obstacle_manager = None
 
     def start(self):
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), MODE)
-        self.game_surface = Surface((GAME_WIDTH, GAME_HEIGHT))
-        self.player = Player(self.game_surface, (GAME_WIDTH/2, GAME_HEIGHT*0.8), PLAYER_SPEED)
-        self.obstacle_manager = ObstacleManager(self.game_surface,
+        self.gameboard = GameBoard((GAME_WIDTH, GAME_HEIGHT))
+        self.player = Player(self.gameboard, (GAME_WIDTH/2, GAME_HEIGHT*0.8), PLAYER_SPEED)
+        self.obstacle_manager = ObstacleManager(self.gameboard,
                                                 OBSTACLE_BASE_SPEED,
                                                 MAX_OBSTACLES,
                                                 CollisionStrategyFactory(self),
                                                 self.player)
+        self.gameboard.add_child(self.player)
+        self.gameboard.add_child(self.obstacle_manager)
 
         while not self.done:
             key = pygame.key.get_pressed()
@@ -76,8 +77,6 @@ class Machine:
             if event.type == pygame.QUIT:
                 self.done = True
 
-        self._draw_background()
-
         direction = 0
         if not (left and right):
             if left:
@@ -85,22 +84,13 @@ class Machine:
             elif right:
                 direction = 1
 
-        self.player.update(self.time_passed, direction)
-        self.player.blit()
-
+        self.player.direction = direction
         self.obstacle_manager.obstacle_speed += ACCELERATION
         self.obstacle_manager.create_obstacle()
-        self.obstacle_manager.update(self.time_passed)
         self.obstacle_manager.obstacle_collide(self.player)
 
-        self.screen.blit(self.game_surface, (0,0))
-
-    def _draw_background(self):
-        if not self.background:
-            self.background = pygame.image.load(self.background_file)
-        self.game_surface.blit(self.background, (0, 0))
-
-
+        self.gameboard.update(self.time_passed)
+        self.screen.blit(self.gameboard, (0, 0))
 
 if __name__ == "__main__":
     machine = Machine()

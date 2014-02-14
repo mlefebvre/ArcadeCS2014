@@ -51,8 +51,6 @@ class Player(Sprite):
             self._change_rect(self.x, self.y, w, h)
 
         for effect in self.effects:
-            print effect.start_time + EFFECTS_DURATION
-            print pygame.time.get_ticks()
             if effect.start_time + EFFECTS_DURATION < pygame.time.get_ticks():
                 effect.kill()
                 self.effects.remove(effect)

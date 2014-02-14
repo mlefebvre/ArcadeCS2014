@@ -4,7 +4,7 @@ from nyan import Nyan
 from healthpack import HealthPack
 from energydrink import EnergyDrink
 from vodka import Vodka
-from pygame.sprite import Sprite, Group, spritecollide
+from pygame.sprite import Group, spritecollide
 
 
 class ObstacleManager:

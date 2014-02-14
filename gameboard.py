@@ -37,10 +37,16 @@ class GameBoard(Surface):
         return surface
 
     def flip(self, duration):
-        self.flip_time = pygame.time.get_ticks() + duration * 1000
+        if duration == 0:
+            self.flip_time = 0
+        else:
+            self.flip_time = pygame.time.get_ticks() + duration * 1000
 
     def blur(self, duration):
-        self.blur_time = pygame.time.get_ticks() + duration * 1000
+        if duration == 0:
+            self.blur_time = 0
+        else:
+            self.blur_time = pygame.time.get_ticks() + duration * 1000
 
     def _draw_background(self):
         if not self.background:

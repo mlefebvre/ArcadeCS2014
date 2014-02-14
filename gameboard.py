@@ -1,4 +1,3 @@
-from hgext import children
 import pygame
 from pygame.surface import Surface
 

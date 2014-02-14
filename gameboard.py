@@ -5,7 +5,7 @@ import pygame
 from pygame.surface import Surface
 import random
 
-DEFAULT_BLUR = 10
+DEFAULT_BLUR = 5
 
 
 class GameBoard(Surface):

@@ -21,3 +21,5 @@ class NyanCollisionStrategy(CollisionStrategy):
                                                         self.trail_file,
                                                         self.game.gameboard,
                                                         pygame.time.get_ticks()))
+
+        self.game.score_manager.increment_score(500)

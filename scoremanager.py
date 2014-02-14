@@ -38,6 +38,7 @@ class ScoreManager:
 
     def increment_score(self, score):
         self.score += score
+        print self.score
 
     def save_game(self, school_id):
         self.conn.execute("INSERT INTO game (school_id, score) VALUES (?, ?)", (school_id, self.score))

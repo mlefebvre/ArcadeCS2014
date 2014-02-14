@@ -33,6 +33,9 @@ class Obstacle(Sprite):
     def _change_rect(self, x, y, w, h):
         self.rect = pygame.Rect(x, y, w, h)
 
+    def set_speed(self, speed):
+        self.speed = speed
+
     def kill(self):
         for effect in self.effects:
             effect.kill()

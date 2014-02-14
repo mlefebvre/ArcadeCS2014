@@ -6,9 +6,8 @@ from collisionstrategies.collision_strategy_factory import CollisionStrategyFact
 from gameboard import GameBoard
 
 WINDOW_WIDTH = 640
-WINDOW_HEIGHT = 480
-GAME_WIDTH = 640
-GAME_HEIGHT = 480
+WINDOW_HEIGHT = 640
+GAME_SIZE = 640
 FPS = 60
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
@@ -38,8 +37,8 @@ class Machine:
 
     def start(self):
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), MODE)
-        self.gameboard = GameBoard((GAME_WIDTH, GAME_HEIGHT))
-        self.player = Player(self.gameboard, (GAME_WIDTH/2, GAME_HEIGHT*0.8), PLAYER_SPEED)
+        self.gameboard = GameBoard((GAME_SIZE, GAME_SIZE))
+        self.player = Player(self.gameboard, (GAME_SIZE/2, GAME_SIZE*0.8), PLAYER_SPEED)
         self.obstacle_manager = ObstacleManager(self.gameboard,
                                                 OBSTACLE_BASE_SPEED,
                                                 MAX_OBSTACLES,
@@ -85,7 +84,7 @@ class Machine:
                 direction = 1
 
         self.player.direction = direction
-        self.obstacle_manager.obstacle_speed += ACCELERATION
+        self.obstacle_manager.accelerate_obstacles(ACCELERATION)
         self.obstacle_manager.create_obstacle()
         self.obstacle_manager.obstacle_collide(self.player)
 

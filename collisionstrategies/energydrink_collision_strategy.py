@@ -6,4 +6,4 @@ class EnergyDrinkCollisionStrategy(CollisionStrategy):
         CollisionStrategy.__init__(self, machine)
 
     def on_collision(self):
-        self.machine.player.speed *= 1.1
+        self.machine.player.increment_speed()

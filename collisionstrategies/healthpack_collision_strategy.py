@@ -8,4 +8,4 @@ class HealthPackCollisionStrategy(CollisionStrategy):
     def on_collision(self):
         self.machine.reverse_controls(False)
         self.machine.gameboard.blur(0)
-        self.machine.gameboard.flip(0)
+        self.machine.gameboard.rotate(0)

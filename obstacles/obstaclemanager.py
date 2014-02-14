@@ -18,12 +18,12 @@ class ObstacleManager:
     obstacles = []
     counter = 0
 
-    def __init__(self, gameboard, obstacle_speed, max_obstacles, collision_strategy_factory, player):
+    def __init__(self, gameboard, speed, max_obstacles, collision_strategy_factory, player):
         self.max_obstacles = max_obstacles
         self.gameboard = gameboard
         self.width = gameboard.width
         self.height = gameboard.height
-        self.obstacle_speed = obstacle_speed
+        self.speed = speed
         self.obstacle_group = Group()
         self.collision_strategy_factory = collision_strategy_factory
         self.player = player
@@ -51,7 +51,7 @@ class ObstacleManager:
             if self.counter % 10 == 0:
                 obstacle = self.__select_obstacle_type()(self.gameboard,
                                                          (random.randint(0, self.width), -40),
-                                                         self.obstacle_speed * (1 + (random.random()-0.5) * 0.2),
+                                                         self.speed * (1 + (random.random()-0.5) * 0.2),
                                                          self.player)
 
                 self.obstacles.append(obstacle)
@@ -73,3 +73,6 @@ class ObstacleManager:
             self.obstacles.remove(c)
             c.kill()
             self.collision_strategy_factory.get_strategy(c).on_collision()
+
+    def accelerate_obstacles(self, speed):
+        self.speed += speed

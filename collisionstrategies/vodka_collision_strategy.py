@@ -6,4 +6,4 @@ class VodkaCollisionStrategy(CollisionStrategy):
         CollisionStrategy.__init__(self, machine)
 
     def on_collision(self):
-        self.machine.gameboard.flip(5)
+        self.machine.gameboard.rotate(5)

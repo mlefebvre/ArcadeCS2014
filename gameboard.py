@@ -1,13 +1,15 @@
 import pygame
 from pygame.surface import Surface
+import random
 
 DEFAULT_BLUR = 10
 
 
 class GameBoard(Surface):
     background_file = 'images/background.png'
-    flip_time = 0
+    rotate_time = 0
     blur_time = 0
+    rotate_angle = 0
 
     def __init__(self, size):
         Surface.__init__(self, size)
@@ -27,19 +29,20 @@ class GameBoard(Surface):
 
     def render(self):
         surface = self
-        if pygame.time.get_ticks() < self.flip_time:
-            surface = pygame.transform.flip(self, False, True)
+        if pygame.time.get_ticks() < self.rotate_time:
+            surface = pygame.transform.rotate(surface, self.rotate_angle)
 
         if pygame.time.get_ticks() < self.blur_time:
             surface = self._blur(surface, DEFAULT_BLUR)
 
         return surface
 
-    def flip(self, duration):
+    def rotate(self, duration):
         if duration == 0:
-            self.flip_time = 0
+            self.rotate_time = 0
         else:
-            self.flip_time = pygame.time.get_ticks() + duration * 1000
+            self.rotate_angle = random.choice([90, 180, 270])
+            self.rotate_time = pygame.time.get_ticks() + duration * 1000
 
     def blur(self, duration):
         if duration == 0:
@@ -50,6 +53,7 @@ class GameBoard(Surface):
     def _draw_background(self):
         if not self.background:
             self.background = pygame.image.load(self.background_file)
+            self.background = pygame.transform.scale(self.background, (self.width, self.height))
         self.blit(self.background, (0, 0))
 
     def _blur(self, surface, amt):

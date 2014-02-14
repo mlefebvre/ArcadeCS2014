@@ -57,6 +57,12 @@ class Player(Sprite):
             else:
                 effect.blit()
 
+    def set_speed(self, speed):
+        self.speed = speed
+
+    def increment_speed(self):
+        self.speed *= 1.1
+
     def blit(self):
         draw_pos = self.images[self.orientation][self.image_id].get_rect().move(self.x, self.y)
         self.gameboard.blit(self.images[self.orientation][self.image_id], draw_pos)

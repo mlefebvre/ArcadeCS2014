@@ -14,12 +14,12 @@ class HorizontalTrail(Effect):
     image_file = 'images/nyan_trail_player.png'
     image = None
 
-    def __init__(self, entity, screen, start_time):
+    def __init__(self, entity, gameboard, duration):
         Effect.__init__(self,
                         entity,
                         self._load_image(),
-                        screen)
-        self.start_time = start_time
+                        gameboard,
+                        duration)
         self.trails = []
         self.trail_offset = 0
 
@@ -37,7 +37,7 @@ class HorizontalTrail(Effect):
         for trail in self.trails:
             draw_pos = self.image.get_rect().move(self.trail_offset + trail[1],
                                                   15 + trail[2] + 5 * math.cos((trail[1] + 40) / 20))
-            self.screen.blit(trail[0], draw_pos)
+            self.gameboard.blit(trail[0], draw_pos)
 
     def kill(self):
         self.trails = []

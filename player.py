@@ -6,7 +6,6 @@ import pygame
 from pygame.sprite import Sprite
 
 COLLISION_PADDING = 0.3   # %
-EFFECTS_DURATION = 10000  # ms
 SPEED = 0.3
 RATIO = 0.12
 
@@ -59,7 +58,7 @@ class Player(Sprite):
             self._change_rect(self.x, self.y, w, h)
 
         for effect in self.effects:
-            if effect.start_time + EFFECTS_DURATION < pygame.time.get_ticks():
+            if effect.is_expired():
                 effect.kill()
                 self.effects.remove(effect)
             else:

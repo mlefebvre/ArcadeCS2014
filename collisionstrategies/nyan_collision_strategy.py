@@ -5,6 +5,7 @@ import pygame
 from collision_strategy import CollisionStrategy
 from effects.HorizontalTrail import HorizontalTrail
 
+EFFECT_DURATION = 10000  # ms
 
 class NyanCollisionStrategy(CollisionStrategy):
     def __init__(self, game):
@@ -16,7 +17,8 @@ class NyanCollisionStrategy(CollisionStrategy):
                 return
 
         self.game.gameboard.player.effects.append(HorizontalTrail(self.game.gameboard.player,
-                                                        self.game.gameboard,
-                                                        pygame.time.get_ticks()))
+                                                                  self.game.gameboard,
+                                                                  EFFECT_DURATION
+                                                                  ))
 
         self.game.score_manager.increment_score(500)

@@ -11,11 +11,12 @@ class VerticalTrail(Effect):
     image_file = 'images/nyan_trail_obstacle.png'
     image = None
 
-    def __init__(self, entity, screen):
+    def __init__(self, entity, gameboard):
         Effect.__init__(self,
                         entity,
                         self._load_image(),
-                        screen)
+                        gameboard,
+                        -1)
         self.trails = []
 
     def blit(self):
@@ -26,7 +27,7 @@ class VerticalTrail(Effect):
 
         for trail in self.trails:
             draw_pos = self.image.get_rect().move(trail[1], trail[2])
-            self.screen.blit(trail[0], draw_pos)
+            self.gameboard.blit(trail[0], draw_pos)
 
     def kill(self):
         self.trails = []

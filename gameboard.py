@@ -7,6 +7,7 @@ import random
 from player import Player
 from obstacles.obstaclemanager import ObstacleManager
 from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
+from effects.DogeText import DogeText
 
 DEFAULT_BLUR = 5
 MAX_OBSTACLES = 10
@@ -15,13 +16,16 @@ ACCELERATION = 0.0001
 
 class GameBoard(Surface):
     background_file = 'images/background.png'
+    background_doge_file = 'images/background_doge.png'
     rotate_time = 0
     blur_time = 0
     rotate_angle = 0
+    effects = []
+    background = None
+    background_doge = None
 
     def __init__(self, size, game):
         Surface.__init__(self, size)
-        self.background = None
         self.width, self.height = size
         self.game = game
         self.player = Player(self, (size[0]/2, size[1]*0.8))
@@ -45,6 +49,13 @@ class GameBoard(Surface):
         for child in self.children:
             child.update(time_passed)
             child.blit()
+
+        for effect in self.effects:
+            if effect.is_expired():
+                effect.kill()
+                self.effects.remove(effect)
+            else:
+                effect.blit()
 
     def render(self):
         surface = self
@@ -76,7 +87,14 @@ class GameBoard(Surface):
         if not self.background:
             self.background = pygame.image.load(self.background_file)
             self.background = pygame.transform.scale(self.background, (self.width, self.height))
-        self.blit(self.background, (0, 0))
+
+            self.background_doge = pygame.image.load(self.background_doge_file)
+            self.background_doge = pygame.transform.scale(self.background_doge, (self.width, self.height))
+
+        if len([e for e in self.effects if type(e) == DogeText]) == 0:
+            self.blit(self.background, (0, 0))
+        else:
+            self.blit(self.background_doge, (0, 0))
 
     def _blur(self, surface, amt):
         if amt < 1.0:
@@ -87,3 +105,4 @@ class GameBoard(Surface):
         surf = pygame.transform.smoothscale(surface, scale_size)
         surf = pygame.transform.smoothscale(surf, surf_size)
         return surf
+

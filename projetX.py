@@ -18,7 +18,7 @@ GAME_SIZE = 500#750
 FPS = 60
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
-MODE = 0  # pygame.FULLSCREEN
+MODE = 0 #pygame.FULLSCREEN
 
 
 DEBUG = True
@@ -43,6 +43,7 @@ class Game:
     topmenu = None
 
     def __init__(self):
+        pygame.init()
         self.clock = pygame.time.Clock()
         self.score_manager = ScoreManager(DB_FILE)
 

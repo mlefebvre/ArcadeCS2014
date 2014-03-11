@@ -8,6 +8,7 @@ from pygame.sprite import Sprite
 COLLISION_PADDING = 0.3   # %
 EFFECTS_DURATION = 10000  # ms
 SPEED = 0.3
+RATIO = 0.12
 
 class Player(Sprite):
     image_directory = 'images/player/'
@@ -25,7 +26,7 @@ class Player(Sprite):
         self.y = position[1]
         self.gameboard = gameboard
         self.speed = SPEED
-        self._load_images()
+        self._load_images(gameboard)
         w, h = self.images[self.orientation][self.image_id].get_size()
         self._change_rect(self.x, self.y, w, h)
 
@@ -36,10 +37,14 @@ class Player(Sprite):
             self.counter += 1
             if self.counter % 5 == 0:
                 self.image_id = (self.image_id + 1) % len(self.images[self.orientation])
+                # L'image 0 est pour quand on bouge pas
+                if self.image_id == 0:
+                    self.image_id = 1
         else:
             self.still_counter += 1
             if self.still_counter > 5:
                 self.image_id = 0
+
 
         if self.orientation != self.direction and self.direction != 0:
             self.orientation = -self.orientation
@@ -70,10 +75,17 @@ class Player(Sprite):
         draw_pos = self.images[self.orientation][self.image_id].get_rect().move(self.x, self.y)
         self.gameboard.blit(self.images[self.orientation][self.image_id], draw_pos)
 
-    def _load_images(self):
+    def _load_images(self, gameboard):
         for f in sorted(os.listdir(self.image_directory)):
             if f.endswith(".png"):
-                self.images[1].append(pygame.image.load(self.image_directory + f).convert_alpha())
+                image = pygame.image.load(self.image_directory + f).convert_alpha()
+                height1 = image.get_height()
+                width1 = image.get_width()
+                height2 = int(gameboard.height * RATIO)
+                width2 = int((width1 / float(height1)) * height2)
+                image = pygame.transform.smoothscale(image, (width2, height2))
+
+                self.images[1].append(image)
                 self.images[-1].append(pygame.transform.flip(self.images[1][-1], True, False))
 
     def _change_rect(self, x, y, w, h):

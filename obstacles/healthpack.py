@@ -9,12 +9,13 @@ TRACK_RATIO = 0.8
 SPEED_MODIFIER = 0.5
 
 class HealthPack(Obstacle):
+    RATIO = 0.05
     image_file = 'images/obstacles/healthpack.png'
     image = None
 
     def __init__(self, gameboard, position, speed):
         Obstacle.__init__(self,
-                          self._load_image(),
+                          self._load_image(gameboard),
                           gameboard,
                           position,
                           speed)
@@ -31,7 +32,14 @@ class HealthPack(Obstacle):
         w, h = self.image.get_size()
         self._change_rect(self.x, self.y, w, h)
 
-    def _load_image(self):
+    def _load_image(self, gameboard):
         if not HealthPack.image:
             HealthPack.image = pygame.image.load(HealthPack.image_file).convert_alpha()
+            height1 = HealthPack.image.get_height()
+            width1 = HealthPack.image.get_width()
+
+            height2 = int(gameboard.height * HealthPack.RATIO)
+            width2 = int((width1 / float(height1)) * height2)
+
+            HealthPack.image = pygame.transform.scale(HealthPack.image, (width2, height2))
         return HealthPack.image

@@ -32,10 +32,11 @@ class HorizontalTrail(Effect):
         else:
             self.trail_offset = LEFT_OFFSET
 
-        self.trails.append([self.image, self.entity.x, self.entity.y - 5])
+        self.trails.append([self.image, self.entity.x + 10, self.entity.y + 10])
 
         for trail in self.trails:
-            draw_pos = self.image.get_rect().move(self.trail_offset + trail[1], 15 + trail[2] + 5 * math.cos((trail[1] + 40) / 20))
+            draw_pos = self.image.get_rect().move(self.trail_offset + trail[1],
+                                                  15 + trail[2] + 5 * math.cos((trail[1] + 40) / 20))
             self.screen.blit(trail[0], draw_pos)
 
     def kill(self):

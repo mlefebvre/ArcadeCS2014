@@ -10,13 +10,12 @@ class EnergyDrink(Obstacle):
     image_file = 'images/obstacles/energydrink.png'
     image = None
 
-    def __init__(self, gameboard, position, speed, player):
+    def __init__(self, gameboard, position, speed):
         Obstacle.__init__(self,
                           self._load_image(),
                           gameboard,
                           position,
-                          speed,
-                          player)
+                          speed)
 
     def _load_image(self):
         if not EnergyDrink.image:

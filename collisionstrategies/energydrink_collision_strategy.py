@@ -9,4 +9,4 @@ class EnergyDrinkCollisionStrategy(CollisionStrategy):
         CollisionStrategy.__init__(self, game)
 
     def on_collision(self):
-        self.game.player.increment_speed()
+        self.game.gameboard.player.increment_speed()

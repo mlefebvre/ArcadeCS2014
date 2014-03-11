@@ -12,16 +12,15 @@ class HealthPack(Obstacle):
     image_file = 'images/obstacles/healthpack.png'
     image = None
 
-    def __init__(self, gameboard, position, speed, player):
+    def __init__(self, gameboard, position, speed):
         Obstacle.__init__(self,
                           self._load_image(),
                           gameboard,
                           position,
-                          speed,
-                          player)
+                          speed)
 
     def update(self, time_passed):
-        direction = vec2d(self.player.x - self.x, self.player.y - self.y).normalized()
+        direction = vec2d(self.gameboard.player.x - self.x, self.gameboard.player.y - self.y).normalized()
 
         displacement = vec2d(direction.x * TRACK_RATIO * self.speed * SPEED_MODIFIER * time_passed,
                              self.speed * time_passed)

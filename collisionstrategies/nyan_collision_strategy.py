@@ -11,11 +11,11 @@ class NyanCollisionStrategy(CollisionStrategy):
         CollisionStrategy.__init__(self, game)
 
     def on_collision(self):
-        for effect in self.game.player.effects:
+        for effect in self.game.gameboard.player.effects:
             if type(effect) == "HorizontalTrail":
                 return
 
-        self.game.player.effects.append(HorizontalTrail(self.game.player,
+        self.game.gameboard.player.effects.append(HorizontalTrail(self.game.gameboard.player,
                                                         self.game.gameboard,
                                                         pygame.time.get_ticks()))
 

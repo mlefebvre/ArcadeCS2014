@@ -7,7 +7,7 @@ from pygame.sprite import Sprite
 
 COLLISION_PADDING = 0.3   # %
 EFFECTS_DURATION = 10000  # ms
-
+SPEED = 0.3
 
 class Player(Sprite):
     image_directory = 'images/player/'
@@ -19,12 +19,12 @@ class Player(Sprite):
     image_id = 0
     direction = 1
 
-    def __init__(self, gameboard, position, speed):
+    def __init__(self, gameboard, position):
         Sprite.__init__(self)
         self.x = position[0]
         self.y = position[1]
-        self.speed = speed
         self.gameboard = gameboard
+        self.speed = SPEED
         self._load_images()
         w, h = self.images[self.orientation][self.image_id].get_size()
         self._change_rect(self.x, self.y, w, h)

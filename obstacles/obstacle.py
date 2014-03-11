@@ -8,7 +8,7 @@ import pygame
 class Obstacle(Sprite):
     images = []
 
-    def __init__(self, image, gameboard, position, speed, player):
+    def __init__(self, image, gameboard, position, speed):
         Sprite.__init__(self)
         self.x = position[0]
         self.y = position[1]
@@ -16,7 +16,6 @@ class Obstacle(Sprite):
         self.speed = speed
         self.gameboard = gameboard
         self.image = image
-        self.player = player
         self.effects = []
 
         w, h = self.image.get_size()

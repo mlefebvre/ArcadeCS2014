@@ -54,8 +54,7 @@ class ObstacleManager:
             if self.counter % 10 == 0:
                 obstacle = self.__select_obstacle_type()(self.gameboard,
                                                          (random.randint(0, self.width), -40),
-                                                         self.speed * (1 + (random.random()-0.5) * 0.2),
-                                                         self.player)
+                                                         self.speed * (1 + (random.random()-0.5) * 0.2))
 
                 self.obstacles.append(obstacle)
                 self.obstacle_group.add(obstacle)
@@ -69,8 +68,8 @@ class ObstacleManager:
                 return c
             upto += w
 
-    def obstacle_collide(self, player):
-        collisions = spritecollide(player, self.obstacle_group, True)
+    def detect_collision(self):
+        collisions = spritecollide(self.player, self.obstacle_group, True)
 
         for c in collisions:
             self.obstacles.remove(c)

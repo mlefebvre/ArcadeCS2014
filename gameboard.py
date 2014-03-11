@@ -4,9 +4,14 @@
 import pygame
 from pygame.surface import Surface
 import random
+from player import Player
+from obstacles.obstaclemanager import ObstacleManager
+from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
 
 DEFAULT_BLUR = 5
-
+MAX_OBSTACLES = 10
+OBSTACLE_BASE_SPEED = 0.3
+ACCELERATION = 0.0001
 
 class GameBoard(Surface):
     background_file = 'images/background.png'
@@ -14,16 +19,27 @@ class GameBoard(Surface):
     blur_time = 0
     rotate_angle = 0
 
-    def __init__(self, size):
+    def __init__(self, size, game):
         Surface.__init__(self, size)
-        self.children = []
         self.background = None
         self.width, self.height = size
+        self.game = game
+        self.player = Player(self, (size[0]/2, size[1]*0.8))
+        self.obstacle_manager = ObstacleManager(self,
+                                                OBSTACLE_BASE_SPEED,
+                                                MAX_OBSTACLES,
+                                                CollisionStrategyFactory(self.game),
+                                                self.player)
+        self.children = [self.player, self.obstacle_manager]
 
     def add_child(self, child):
         self.children.append(child)
 
-    def update(self, time_passed):
+    def tick(self, time_passed):
+        self.obstacle_manager.accelerate_obstacles(ACCELERATION)
+        self.obstacle_manager.create_obstacle()
+        self.obstacle_manager.detect_collision()
+
         self._draw_background()
 
         for child in self.children:
@@ -39,6 +55,9 @@ class GameBoard(Surface):
             surface = self._blur(surface, DEFAULT_BLUR)
 
         return surface
+
+    def set_player_direction(self, direction):
+        self.player.direction = direction
 
     def rotate(self, duration):
         if duration == 0:

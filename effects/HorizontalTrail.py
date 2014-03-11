@@ -11,10 +11,13 @@ LEFT_OFFSET = 20
 
 
 class HorizontalTrail(Effect):
-    def __init__(self, entity, image, screen, start_time):
+    image_file = 'images/nyan_trail_player.png'
+    image = None
+
+    def __init__(self, entity, screen, start_time):
         Effect.__init__(self,
                         entity,
-                        pygame.image.load(image).convert_alpha(),
+                        self._load_image(),
                         screen)
         self.start_time = start_time
         self.trails = []
@@ -39,3 +42,8 @@ class HorizontalTrail(Effect):
         self.trails = []
 
         super(HorizontalTrail, self).kill()
+
+    def _load_image(self):
+        if not HorizontalTrail.image:
+            HorizontalTrail.image = pygame.image.load(HorizontalTrail.image_file).convert_alpha()
+        return HorizontalTrail.image

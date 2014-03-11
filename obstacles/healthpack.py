@@ -10,10 +10,11 @@ SPEED_MODIFIER = 0.5
 
 class HealthPack(Obstacle):
     image_file = 'images/obstacles/healthpack.png'
+    image = None
 
     def __init__(self, gameboard, position, speed, player):
         Obstacle.__init__(self,
-                          pygame.image.load(self.image_file).convert_alpha(),
+                          self._load_image(),
                           gameboard,
                           position,
                           speed,
@@ -30,3 +31,8 @@ class HealthPack(Obstacle):
 
         w, h = self.image.get_size()
         self._change_rect(self.x, self.y, w, h)
+
+    def _load_image(self):
+        if not HealthPack.image:
+            HealthPack.image = pygame.image.load(HealthPack.image_file).convert_alpha()
+        return HealthPack.image

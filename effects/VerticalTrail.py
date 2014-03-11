@@ -8,10 +8,13 @@ TRAIL_SIZE = 50
 
 
 class VerticalTrail(Effect):
-    def __init__(self, entity, image, screen):
+    image_file = 'images/nyan_trail_obstacle.png'
+    image = None
+
+    def __init__(self, entity, screen):
         Effect.__init__(self,
                         entity,
-                        pygame.image.load(image).convert_alpha(),
+                        self._load_image(),
                         screen)
         self.trails = []
 
@@ -29,3 +32,8 @@ class VerticalTrail(Effect):
         self.trails = []
 
         super(VerticalTrail, self).kill()
+
+    def _load_image(self):
+        if not VerticalTrail.image:
+            VerticalTrail.image = pygame.image.load(VerticalTrail.image_file).convert_alpha()
+        return VerticalTrail.image

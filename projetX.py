@@ -12,9 +12,9 @@ from menus.topmenu import TopMenu
 from scoremanager import ScoreManager
 
 
-WINDOW_WIDTH = 1080
-WINDOW_HEIGHT = 900
-GAME_SIZE = 750
+WINDOW_WIDTH = 720#1080
+WINDOW_HEIGHT = 600#900
+GAME_SIZE = 500#750
 FPS = 60
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT

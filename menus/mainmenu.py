@@ -58,9 +58,10 @@ class MainMenu(Surface):
             if not self.column_selected:
                 self.column_selected = True
                 self.select = False
-
             else:
-                pass # On start le jeu ici
+                school = self.schools[self.column_id][self.row_id]
+                self.reset()
+                self.game.start_game(school)
 
     def render(self):
         self.blit(self.background_image, self.background_image.get_rect())

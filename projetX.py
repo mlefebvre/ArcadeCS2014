@@ -112,8 +112,9 @@ class Game:
         self.screen.blit(self.scoreboard.render(), (GAME_SIZE, 0))
         self.screen.blit(self.topmenu.render(), (0, 0))
 
-    def start_game(self):
+    def start_game(self, school):
         self.game_started = True
+        print school
 
     def stop_game(self):
         self.game_started = False

@@ -12,7 +12,7 @@ class DogeText(Effect):
 
     words = ["Much beer", "Such drunk", "Wow",
              "So thirsty", "Very drunk", "Wow",
-             "Such alcohol"]
+             "Much alcohol", "Such degrise" ]
     word_id = 0
 
     colors = [(255, 0, 0), (200, 0, 200), (0, 0, 255)]

@@ -19,6 +19,10 @@ class MainMenu(Surface):
 
     column_selected = False
     column_id = 0
+    row_id = 0
+
+    switch = False
+    select = False
 
     schools = [['brock', 'concordia', 'ets', 'guelph', 'laval', 'manitoba'],
                ['mcgill', 'ottawa', 'poly', 'queens', 'rochester', 'sherbrooke'],
@@ -36,9 +40,27 @@ class MainMenu(Surface):
 
     def reset(self):
         self.column_selected = False
+        self.column_id = 0
+        self.row_id = 0
 
-    def update(self, time_passed):
-        pass
+    def update(self, switch, select):
+        if switch:
+            self.switch = True
+        elif select:
+            self.select = True
+        elif self.switch:
+            if not self.column_selected:
+                self.column_id = (self.column_id + 1) % len(self.schools)
+            else:
+                self.row_id = (self.row_id + 1) % len(self.schools[self.column_id])
+            self.switch = False
+        elif self.select:
+            if not self.column_selected:
+                self.column_selected = True
+                self.select = False
+
+            else:
+                pass # On start le jeu ici
 
     def render(self):
         self.blit(self.background_image, self.background_image.get_rect())
@@ -59,13 +81,22 @@ class MainMenu(Surface):
         else:
             self.blit(self.select_school_text, self.select_school_text.get_rect().move(int(self.width * 0.22), int(self.height * 0.02)))
 
-        pygame.draw.rect(self,
-                         (255, 255, 0),
-                         pygame.Rect((0.075 * self.width + 0.213 * self.width * self.column_id,
-                                      0.224 * self.height),
-                                     (0.213 * self.width,
-                                      self.height * 0.0925 * len(self.schools[self.column_id]))),
-                         6)
+        if not self.column_selected:
+            pygame.draw.rect(self,
+                             (255, 255, 0),
+                             pygame.Rect((0.075 * self.width + 0.213 * self.width * self.column_id,
+                                          0.224 * self.height),
+                                         (0.213 * self.width,
+                                          self.height * 0.0925 * len(self.schools[self.column_id]))),
+                             10)
+        else:
+            pygame.draw.rect(self,
+                             (255, 255, 0),
+                             pygame.Rect((0.075 * self.width + 0.213 * self.width * self.column_id,
+                                          0.224 * self.height + 0.0925 * self.height * self.row_id),
+                                         (0.213 * self.width,
+                                          0.0925 * self.height)),
+                             10)
 
         return self
 

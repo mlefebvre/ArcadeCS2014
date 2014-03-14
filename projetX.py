@@ -73,7 +73,9 @@ class Game:
                 self._main_menu_tick(left, right)
 
             pygame.display.flip()
+
             self.time_passed = self.clock.tick(FPS)
+
         pygame.quit()
 
     def reverse_controls(self, reversed):
@@ -89,7 +91,9 @@ class Game:
 
         return left, right
 
-    def _main_menu_tick(self, switch, select):
+    def _main_menu_tick(self, select, switch):
+        self.mainmenu.update(select, switch)
+
         self.screen.blit(self.mainmenu.render(), (0, 0))
 
     def _tick(self, left, right):

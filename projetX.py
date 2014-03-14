@@ -9,12 +9,13 @@ from collisionstrategies.collision_strategy_factory import CollisionStrategyFact
 from gameboard import GameBoard
 from menus.scoreboard import ScoreBoard
 from menus.topmenu import TopMenu
+from menus.mainmenu import MainMenu
 from scoremanager import ScoreManager
 
 
 WINDOW_WIDTH = 720#1080
 WINDOW_HEIGHT = 600#900
-GAME_SIZE = 500#750
+GAME_SIZE = int(WINDOW_WIDTH * 0.70)
 FPS = 60
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
@@ -41,6 +42,7 @@ class Game:
     gameboard = None
     scoreboard = None
     topmenu = None
+    game_started = False
 
     def __init__(self):
         pygame.init()
@@ -52,6 +54,7 @@ class Game:
         self.gameboard = GameBoard((GAME_SIZE, GAME_SIZE), self)
         self.scoreboard = ScoreBoard((WINDOW_WIDTH - GAME_SIZE, WINDOW_HEIGHT), self.score_manager)
         self.topmenu = TopMenu((GAME_SIZE, WINDOW_HEIGHT - GAME_SIZE))
+        self.mainmenu = MainMenu((WINDOW_WIDTH, WINDOW_HEIGHT), self)
 
         while not self.done:
             key = pygame.key.get_pressed()
@@ -59,7 +62,16 @@ class Game:
 
             if key[pygame.K_ESCAPE]:
                 self.done = True
-            self._tick(left, right)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.done = True
+
+            if self.game_started:
+                self._tick(left, right)
+            else:
+                self._main_menu_tick(left, right)
+
             pygame.display.flip()
             self.time_passed = self.clock.tick(FPS)
         pygame.quit()
@@ -77,11 +89,10 @@ class Game:
 
         return left, right
 
-    def _tick(self, left, right):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.done = True
+    def _main_menu_tick(self, switch, select):
+        self.screen.blit(self.mainmenu.render(), (0, 0))
 
+    def _tick(self, left, right):
         direction = 0
         if not (left and right):
             if left:
@@ -96,6 +107,13 @@ class Game:
         self.screen.blit(self.gameboard.render(), (0, WINDOW_HEIGHT - GAME_SIZE))
         self.screen.blit(self.scoreboard.render(), (GAME_SIZE, 0))
         self.screen.blit(self.topmenu.render(), (0, 0))
+
+    def start_game(self):
+        self.game_started = True
+
+    def stop_game(self):
+        self.game_started = False
+        self.controls_reversed = False
 
 if __name__ == "__main__":
     game = Game()

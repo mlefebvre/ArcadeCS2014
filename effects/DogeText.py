@@ -11,7 +11,8 @@ TRAIL_SIZE = 50
 class DogeText(Effect):
 
     words = ["Much beer", "Such drunk", "Wow",
-             "So thirsty", "Very drunk", "Wow"]
+             "So thirsty", "Very drunk", "Wow",
+             "Such alcohol"]
     word_id = 0
 
     colors = [(255, 0, 0), (200, 0, 200), (0, 0, 255)]

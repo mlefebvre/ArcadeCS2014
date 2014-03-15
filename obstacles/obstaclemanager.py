@@ -77,4 +77,4 @@ class ObstacleManager:
             c.kill()
 
     def accelerate_obstacles(self, speed):
-        pass#self.speed += speed
+        self.speed += speed

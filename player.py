@@ -74,7 +74,9 @@ class Player(Sprite):
         self.speed = speed
 
     def increment_speed(self):
-        self.speed *= 1.3
+        if self.speed * 1.2 < 0.7:
+            self.speed *= 1.2
+
 
     def blit(self):
         self.ticks += 1
@@ -122,6 +124,9 @@ class Player(Sprite):
 
     def is_immune(self):
         return self.immunity_start + IMMUNITY_DELAY > pygame.time.get_ticks()
+
+    def reset(self):
+        self.speed = SPEED
 
 
 

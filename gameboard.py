@@ -106,3 +106,6 @@ class GameBoard(Surface):
         surf = pygame.transform.smoothscale(surf, surf_size)
         return surf
 
+    def reset(self):
+        self.player.reset()
+

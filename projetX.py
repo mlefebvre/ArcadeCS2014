@@ -113,6 +113,7 @@ class Game:
 
     def start_game(self, school):
         self.game_started = True
+        self.gameboard.reset()
         print school
 
     def stop_game(self):

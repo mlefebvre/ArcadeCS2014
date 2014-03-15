@@ -68,7 +68,7 @@ class Player(Sprite):
         self.speed = speed
 
     def increment_speed(self):
-        self.speed *= 1.1
+        self.speed *= 1.3
 
     def blit(self):
         draw_pos = self.images[self.orientation][self.image_id].get_rect().move(self.x, self.y)

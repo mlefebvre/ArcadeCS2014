@@ -37,7 +37,6 @@ class Game:
     time_passed = 0
     done = False
     screen = None
-    player = None
     obstacle_manager = None
     gameboard = None
     scoreboard = None

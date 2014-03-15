@@ -35,7 +35,7 @@ class DogeText(Effect):
 
     def _create_text(self, gameboard):
         if not DogeText.font:
-            DogeText.font = pygame.font.SysFont("Comic Sans MS", 30)
+            DogeText.font = pygame.font.SysFont("Comic Sans MS", int(gameboard.width * 0.05))
 
         word = self.words[DogeText.word_id]
         DogeText.word_id = (DogeText.word_id + 1) % len(DogeText.words)

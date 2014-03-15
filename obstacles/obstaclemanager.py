@@ -18,13 +18,8 @@ class ObstacleManager:
                       HealthPack: 4,
                       Vodka: 10
                       }
-
-    # Si on rentre dans un des obstacles, on a une immunité de IMMUNITY_DELAY ticks
-    immunity_obstacles = {Beer, Vodka}
-
     obstacles = []
     counter = 0
-
 
     def __init__(self, gameboard, speed, max_obstacles, collision_strategy_factory, player):
         self.max_obstacles = max_obstacles
@@ -76,20 +71,10 @@ class ObstacleManager:
     def detect_collision(self):
         collisions = spritecollide(self.player, self.obstacle_group, True)
 
-
         for c in collisions:
-            immune = False
-            if type(c) in self.immunity_obstacles:
-                immune = self.player.is_immune()
-
-            if not immune:
-                self.collision_strategy_factory.get_strategy(c).on_collision()
-                if type(c) in self.immunity_obstacles:
-                    self.player.set_immune()
-
+            self.collision_strategy_factory.get_strategy(c).on_collision()
             self.obstacles.remove(c)
             c.kill()
-            print immune
 
     def accelerate_obstacles(self, speed):
-        self.speed += speed
+        pass#self.speed += speed

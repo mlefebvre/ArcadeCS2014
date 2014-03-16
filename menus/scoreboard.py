@@ -5,16 +5,22 @@ import pygame
 from pygame.surface import Surface
 
 NUMBER_RATIO = 0.091
+MAX_LIVES = 5
 
 class ScoreBoard(Surface):
 
     score_file = 'images/menus/scoreboard/score.png'
     line_file = 'images/menus/scoreboard/rainbow.png'
     number_folder = 'images/menus/scoreboard/'
+    life_file = 'images/menus/scoreboard/beer.png'
+    no_life_file = 'images/menus/scoreboard/empty_beer.png'
 
     score_image = None
     line_image = None
     number_images = {}
+    life_image = None
+    no_life_image = None
+    lives = MAX_LIVES
 
     def __init__(self, size, score_manager):
         Surface.__init__(self, size)
@@ -38,6 +44,17 @@ class ScoreBoard(Surface):
         i += 0.055
         self.blit(self.line_image, self.line_image.get_rect().move(0, self.height * i))
 
+        i += 0.03
+        x = 0.05 * self.width
+        for k in range(MAX_LIVES):
+            rect = self.life_image.get_rect()
+            x += (0.2/MAX_LIVES) * self.width
+            if k >= self.lives:
+                self.blit(self.no_life_image, rect.move(x, self.height * i))
+            else:
+                self.blit(self.life_image, rect.move(x, self.height * i))
+            x += rect.width
+
         return self
 
     def _display_score(self, score, y):
@@ -58,11 +75,11 @@ class ScoreBoard(Surface):
             self.blit(image, image.get_rect().move(x, y))
             x -= self.width * 0.11
 
-
     def _load_images(self):
         self._load_title_image()
         self._load_line_image()
         self._load_number_images()
+        self._load_life_images()
 
     def _load_title_image(self):
         self.score_image = pygame.image.load(self.score_file)
@@ -86,3 +103,21 @@ class ScoreBoard(Surface):
             height2 = int((height1 / float(width1)) * width2)
 
             self.number_images[i] = pygame.transform.scale(self.number_images[i], (width2, height2))
+
+    def _load_life_images(self):
+        self.life_image = pygame.image.load(self.life_file)
+        self.no_life_image = pygame.image.load(self.no_life_file)
+        width1 = self.life_image.get_width()
+        height1 = self.life_image.get_height()
+
+        width2 = int((self.width / MAX_LIVES) * 0.7)
+        height2 = int((height1 / float(width1)) * width2)
+
+        self.life_image = pygame.transform.scale(self.life_image, (width2, height2))
+        self.no_life_image = pygame.transform.scale(self.no_life_image, (width2, height2))
+
+    def remove_life(self):
+        self.lives -= 1
+
+    def is_game_over(self):
+        return self.lives <= 0

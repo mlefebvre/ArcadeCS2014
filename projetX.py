@@ -13,8 +13,8 @@ from menus.mainmenu import MainMenu
 from scoremanager import ScoreManager
 
 
-WINDOW_WIDTH = 1080
-WINDOW_HEIGHT = 900
+WINDOW_WIDTH = 720#1080
+WINDOW_HEIGHT = 600#900
 GAME_SIZE = int(WINDOW_WIDTH * 0.70)
 FPS = 60
 LEFT_KEY = pygame.K_LEFT
@@ -119,6 +119,10 @@ class Game:
     def stop_game(self):
         self.game_started = False
         self.controls_reversed = False
+
+    def drink(self):
+        self.scoreboard.remove_life()
+        print self.scoreboard.is_game_over()
 
 if __name__ == "__main__":
     game = Game()

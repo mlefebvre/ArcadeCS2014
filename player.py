@@ -83,7 +83,7 @@ class Player(Sprite):
         #print (self.ticks / 5)
         draw_pos = self.images[self.orientation][self.image_id].get_rect().move(self.x, self.y)
         if self.is_immune() and (self.ticks / 10) % 2 == 0:
-           self.gameboard.blit(self.images_drunk[self.orientation][self.image_id], draw_pos)
+            self.gameboard.blit(self.images_drunk[self.orientation][self.image_id], draw_pos)
         else:
             self.gameboard.blit(self.images[self.orientation][self.image_id], draw_pos)
 

@@ -12,6 +12,7 @@ class BeerCollisionStrategy(CollisionStrategy):
         if not self.game.gameboard.player.is_immune():
             self.game.reverse_controls(True)
             self.game.gameboard.player.set_immune()
+            self.game.drink()
 
             #self.game.gameboard.blur(5)
-        self.game.gameboard.effects.append(DogeText(self.game.gameboard, 2000))
+        self.game.gameboard.effects.append(DogeText(self.game.gameboard, 4000))

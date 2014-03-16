@@ -43,7 +43,7 @@ class Game:
     scoreboard = None
     topmenu = None
     gameovermenu = None
-    state = GameState.GameOver
+    state = GameState.MainMenu
 
     def __init__(self):
         pygame.init()
@@ -122,11 +122,14 @@ class Game:
     def start_game(self, school):
         self.set_state(GameState.Running)
         self.gameboard.reset()
-        print school
+        self.school_id = self.score_manager.get_school_id(school)
+        print self.school_id
 
     def stop_game(self):
         self.set_state(GameState.GameOver)
+        self.gameovermenu.set_score(self.score_manager.get_score())
         self.controls_reversed = False
+        self.score_manager.save_game(self.school_id)
 
     def set_state(self, state):
         self.state = state

@@ -4,8 +4,9 @@
 import pygame
 from pygame.surface import Surface
 
-NUMBER_RATIO = 0.091
+NUMBER_RATIO = 0.09
 MAX_LIVES = 5
+SCORE_SIZE = 6
 
 class ScoreBoard(Surface):
 
@@ -59,21 +60,23 @@ class ScoreBoard(Surface):
 
     def _display_score(self, score, y):
         i = 0
-        x = 0.833 * self.width
+        x = 0.9 * self.width
 
         while score > 0:
             val = score % 10
             score /= 10
             i += 1
             image = self.number_images[val]
+            x -= image.get_rect().width
             self.blit(image, image.get_rect().move(x, y))
-            x -= self.width * 0.11
+            x -= ((1 - (SCORE_SIZE * NUMBER_RATIO) - 0.2)/SCORE_SIZE) * self.width
 
-        while i < 8:
+        while i < SCORE_SIZE:
             i += 1
             image = self.number_images[0]
+            x -= image.get_rect().width
             self.blit(image, image.get_rect().move(x, y))
-            x -= self.width * 0.11
+            x -= ((1 - (SCORE_SIZE * NUMBER_RATIO) - 0.2)/SCORE_SIZE) * self.width
 
     def _load_images(self):
         self._load_title_image()

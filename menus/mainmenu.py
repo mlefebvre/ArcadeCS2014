@@ -28,10 +28,10 @@ class MainMenu(Surface):
     switch = False
     select = False
 
-    schools = [['ets', 'brock', 'concordia', 'guelph', 'laval', 'manitoba'],
-               ['mcgill', 'ottawa', 'poly', 'queens', 'rochester', 'sherbrooke'],
-               ['shippensburg', 'toronto', 'udem', 'uqac', 'uqam', 'uqar'],
-               ['uqo', 'windsor', 'york']]
+    schools = [['ETS', 'Brock', 'Concordia', 'Guelph', 'Laval', 'Manitoba'],
+               ['McGill', 'Ottawa', 'Poly', 'Queen\'s', 'Rochester', 'Sherbrooke'],
+               ['Shippensburg', 'Toronto', 'UDEM', 'UQAC', 'UQAM', 'UQAR'],
+               ['UQO', 'Windsor', 'York']]
 
     def __init__(self, size, game):
         Surface.__init__(self, size)

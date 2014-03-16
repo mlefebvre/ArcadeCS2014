@@ -17,11 +17,14 @@ class GameOverMenu(Surface):
     title_images = []
     baby_images = []
 
+    score = 0
+
     def __init__(self, size, game):
         Surface.__init__(self, size)
         self.width, self.height = size
         self.game = game
         self._load_images()
+        self.font = pygame.font.SysFont("Comic Sans MS", int(0.09 * self.width))
 
     def update(self, select, switch):
         pass
@@ -39,6 +42,11 @@ class GameOverMenu(Surface):
         rect = baby.get_rect()
         self.blit(baby, baby.get_rect().move(int(0.03 * self.width), int(0.17 * self.height)))
         self.blit(baby, baby.get_rect().move(int(0.79 * self.width), int(0.17 * self.height)))
+
+        ###################################### Score ################################
+        score = self.font.render(str(self.score), 1, (255, 255, 0))
+        rect = score.get_rect()
+        self.blit(score, rect.move(int((self.width - rect.width) / 2), int(0.18 * self.height)))
 
         return self
 
@@ -66,4 +74,7 @@ class GameOverMenu(Surface):
                 dict[int(f[:f.find(".")])] = image
 
         self.baby_images = [dict[c] for c in sorted(dict)]
+
+    def set_score(self, score):
+        self.score = score
 

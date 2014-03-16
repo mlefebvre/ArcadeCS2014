@@ -18,6 +18,9 @@ class ScoreManager:
                 self.schools[row[0]] = row[1]
         return self.schools
 
+    def get_school_id(self, name):
+        return [i for i, n in self.get_schools().items() if n == name][0]
+
     def get_drunkest_school(self):
         if self.drunkest_school == None:
             self.update_drunkest_school()

@@ -38,7 +38,7 @@ class GameOverMenu(Surface):
         baby = self.baby_images[(pygame.time.get_ticks() / 100) % len(self.baby_images)]
         rect = baby.get_rect()
         self.blit(baby, baby.get_rect().move(int(0.03 * self.width), int(0.17 * self.height)))
-        self.blit(baby, baby.get_rect().move(int(0.8 * self.width), int(0.17 * self.height)))
+        self.blit(baby, baby.get_rect().move(int(0.79 * self.width), int(0.17 * self.height)))
 
         return self
 

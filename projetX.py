@@ -2,6 +2,7 @@
 #coding: utf8
 
 import pygame
+from GameState import GameState
 
 from player import Player
 from obstacles.obstaclemanager import ObstacleManager
@@ -11,6 +12,7 @@ from menus.scoreboard import ScoreBoard
 from menus.topmenu import TopMenu
 from menus.mainmenu import MainMenu
 from scoremanager import ScoreManager
+from menus.gameovermenu import GameOverMenu
 
 
 WINDOW_WIDTH = 720#1080
@@ -30,7 +32,6 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
-
 class Game:
     controls_reversed = False
     score = 0
@@ -41,7 +42,8 @@ class Game:
     gameboard = None
     scoreboard = None
     topmenu = None
-    game_started = False
+    gameovermenu = None
+    state = GameState.GameOver
 
     def __init__(self):
         pygame.init()
@@ -54,6 +56,7 @@ class Game:
         self.scoreboard = ScoreBoard((WINDOW_WIDTH - GAME_SIZE, WINDOW_HEIGHT), self.score_manager)
         self.topmenu = TopMenu((GAME_SIZE, WINDOW_HEIGHT - GAME_SIZE))
         self.mainmenu = MainMenu((WINDOW_WIDTH, WINDOW_HEIGHT), self)
+        self.gameovermenu = GameOverMenu((WINDOW_WIDTH, WINDOW_HEIGHT), self)
 
         while not self.done:
             key = pygame.key.get_pressed()
@@ -66,10 +69,13 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.done = True
 
-            if self.game_started:
+            if self.state == GameState.Running:
                 self._tick(left, right)
-            else:
+            elif self.state == GameState.MainMenu:
                 self._main_menu_tick(left, right)
+            elif self.state == GameState.GameOver:
+                self._game_over_tick()
+
 
             pygame.display.flip()
 
@@ -92,8 +98,10 @@ class Game:
 
     def _main_menu_tick(self, select, switch):
         self.mainmenu.update(select, switch)
-
         self.screen.blit(self.mainmenu.render(), (0, 0))
+
+    def _game_over_tick(self):
+        self.screen.blit(self.gameovermenu.render(), (0,0))
 
     def _tick(self, left, right):
         direction = 0
@@ -112,17 +120,21 @@ class Game:
         self.screen.blit(self.topmenu.render(), (0, 0))
 
     def start_game(self, school):
-        self.game_started = True
+        self.set_state(GameState.Running)
         self.gameboard.reset()
         print school
 
     def stop_game(self):
-        self.game_started = False
+        self.set_state(GameState.GameOver)
         self.controls_reversed = False
+
+    def set_state(self, state):
+        self.state = state
 
     def drink(self):
         self.scoreboard.remove_life()
-        print self.scoreboard.is_game_over()
+        if self.scoreboard.is_game_over():
+            self.stop_game()
 
 if __name__ == "__main__":
     game = Game()

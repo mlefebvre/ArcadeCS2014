@@ -15,8 +15,8 @@ from scoremanager import ScoreManager
 from menus.gameovermenu import GameOverMenu
 
 
-WINDOW_WIDTH = 720#1080
-WINDOW_HEIGHT = 600#900
+WINDOW_WIDTH = 1080#720#
+WINDOW_HEIGHT = 900#600
 GAME_SIZE = int(WINDOW_WIDTH * 0.70)
 FPS = 60
 LEFT_KEY = pygame.K_LEFT

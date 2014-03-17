@@ -10,13 +10,17 @@ class MainMenu(Surface):
                   'images/menus/top/fire2.png',
                   'images/menus/top/fire3.png',
                   'images/menus/top/fire4.png']
-    background_file = 'images/menus/mainmenu/mainmenu.png'
+    background_files = ['images/menus/mainmenu/mainmenu0.png',
+                        'images/menus/mainmenu/mainmenu1.png',
+                        'images/menus/mainmenu/mainmenu2.png',
+                        'images/menus/mainmenu/mainmenu3.png']
+
     star_file = 'images/menus/mainmenu/star.png'
     back1_file = 'images/menus/mainmenu/back1.png'
     back2_file = 'images/menus/mainmenu/back2.png'
 
     fire_images = []
-    background_image = None
+    background_images = []
     star_image = None
     back1_image = None
     back2_image = None
@@ -73,7 +77,7 @@ class MainMenu(Surface):
                     self.game.start_game(school)
 
     def render(self):
-        self.blit(self.background_image, self.background_image.get_rect())
+        self.blit(self.background_images[self.column_id], self.background_images[self.column_id].get_rect())
 
         ###################################### FEU ###############################
         fire = self.fire_images[(pygame.time.get_ticks() / 150) % len(self.fire_files)]
@@ -134,10 +138,11 @@ class MainMenu(Surface):
             self.fire_images.append(image)
 
     def _load_background(self):
-        self.background_image = pygame.image.load(self.background_file)
-        rect = self.background_image.get_rect()
-        self.background_image = pygame.transform.scale(self.background_image,
-                                                      (self.width, int((rect.height / float(rect.width)) * self.width)))
+        for bf in self.background_files:
+            image = pygame.image.load(bf)
+            rect = image.get_rect()
+            image = pygame.transform.scale(image, (self.width, int((rect.height / float(rect.width)) * self.width)))
+            self.background_images.append(image)
 
     def _load_star(self):
         self.star_image = pygame.image.load(self.star_file).convert_alpha()

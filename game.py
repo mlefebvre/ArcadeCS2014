@@ -2,21 +2,21 @@
 #coding: utf8
 
 import pygame
-from GameState import GameState
+from game_state import GameState
 
 from player import Player
-from obstacles.obstaclemanager import ObstacleManager
+from obstacles.obstacle_manager import ObstacleManager
 from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
 from gameboard import GameBoard
 from menus.scoreboard import ScoreBoard
-from menus.topmenu import TopMenu
-from menus.mainmenu import MainMenu
+from menus.top_menu import TopMenu
+from menus.main_menu import MainMenu
 from scoremanager import ScoreManager
-from menus.gameovermenu import GameOverMenu
+from menus.game_over_menu import GameOverMenu
 
 
-WINDOW_WIDTH = 1080#720#
-WINDOW_HEIGHT = 900#600
+WINDOW_WIDTH = 720#1080#720#
+WINDOW_HEIGHT = 600#900#600
 GAME_SIZE = int(WINDOW_WIDTH * 0.70)
 FPS = 60
 LEFT_KEY = pygame.K_LEFT

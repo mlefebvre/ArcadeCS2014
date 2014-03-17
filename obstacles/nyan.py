@@ -4,7 +4,7 @@
 import random
 import pygame
 import math
-from effects.VerticalTrail import VerticalTrail
+from effects.vertical_trail import VerticalTrail
 from obstacles.obstacle import Obstacle
 
 

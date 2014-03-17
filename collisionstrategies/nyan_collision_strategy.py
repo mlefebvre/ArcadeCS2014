@@ -3,7 +3,7 @@
 
 import pygame
 from collision_strategy import CollisionStrategy
-from effects.HorizontalTrail import HorizontalTrail
+from effects.horizontal_trail import HorizontalTrail
 
 EFFECT_DURATION = 10000  # ms
 

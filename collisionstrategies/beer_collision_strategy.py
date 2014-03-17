@@ -2,7 +2,7 @@
 #coding: utf8
 
 from collision_strategy import CollisionStrategy
-from effects.DogeText import DogeText
+from effects.dogetext import DogeText
 
 class BeerCollisionStrategy(CollisionStrategy):
     def __init__(self, game):

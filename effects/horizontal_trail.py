@@ -3,7 +3,7 @@
 
 import math
 import pygame
-from effects.Effect import Effect
+from effects.effect import Effect
 
 TRAIL_SIZE = 10
 RIGHT_OFFSET = 10

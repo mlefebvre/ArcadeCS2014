@@ -5,9 +5,9 @@ import pygame
 from pygame.surface import Surface
 import random
 from player import Player
-from obstacles.obstaclemanager import ObstacleManager
+from obstacles.obstacle_manager import ObstacleManager
 from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
-from effects.DogeText import DogeText
+from effects.dogetext import DogeText
 
 DEFAULT_BLUR = 5
 MAX_OBSTACLES = 10

@@ -2,7 +2,7 @@
 #coding: utf8
 
 import pygame
-from effects.Effect import Effect
+from effects.effect import Effect
 import random
 
 TRAIL_SIZE = 50

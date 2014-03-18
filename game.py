@@ -16,13 +16,14 @@ from menus.game_over_menu import GameOverMenu
 from pump import Pump
 import signal, sys
 
-WINDOW_WIDTH = 720#1080#720#
-WINDOW_HEIGHT = 600#900#600
+WINDOW_WIDTH = 1080#720#
+WINDOW_HEIGHT = 900#600
 GAME_SIZE = int(WINDOW_WIDTH * 0.70)
 FPS = 60
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
-MODE = 0 #pygame.FULLSCREEN
+MODE = 0#pygame.FULLSCREEN
+PUMP_PORT = "COM3"
 
 
 DEBUG = True
@@ -45,11 +46,14 @@ class Game:
     topmenu = None
     gameovermenu = None
     state = GameState.MainMenu
+    pump = None
+    school_id = 1
 
-    def __init__(self):
+    def __init__(self, pump):
         pygame.init()
         self.clock = pygame.time.Clock()
         self.score_manager = ScoreManager(DB_FILE)
+        self.pump = pump
 
     def start(self):
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), MODE)
@@ -124,7 +128,6 @@ class Game:
         self.set_state(GameState.Running)
         self.gameboard.reset()
         self.school_id = self.score_manager.get_school_id(school)
-        print self.school_id
 
     def stop_game(self):
         self.set_state(GameState.GameOver)
@@ -137,33 +140,18 @@ class Game:
 
     def drink(self):
         self.scoreboard.remove_life()
+        self.pump.drink()
         if self.scoreboard.is_game_over():
             self.stop_game()
 
 if __name__ == "__main__":
-    #game = Game()
-    #game.start()
-    sm = ScoreManager(DB_FILE)
-    print sm.get_drunkest_schools()
-    print sm.get_total_school_score()
-    print sm.get_average_score()
-    print sm.get_high_scores()
-
-    pump = Pump("COM1")
-    pump.start()
-
-    import time
-    try:
-        while(True):
-            print "bbb"
-            pump.drink()
-            time.sleep(3)
-
-    except Exception as e:
-        print e.message
-
-    pump.kill()
-    pump.join(1)
-    pump.close()
+    pump = Pump(PUMP_PORT)
+    with pump:
+        try:
+            pump.start()
+            game = Game(pump)
+            game.start()
+        except Exception as e:
+            print e
 
 

@@ -10,5 +10,5 @@ class HealthPackCollisionStrategy(CollisionStrategy):
 
     def on_collision(self):
         self.game.reverse_controls(False)
-        self.game.gameboard.blur(0)
+        #self.game.gameboard.blur(0)
         self.game.gameboard.rotate(0)

@@ -15,12 +15,14 @@ class ScoreBoard(Surface):
     number_folder = 'images/menus/scoreboard/'
     life_file = 'images/menus/scoreboard/beer.png'
     no_life_file = 'images/menus/scoreboard/empty_beer.png'
+    help_file = 'images/menus/scoreboard/help.png'
 
     score_image = None
     line_image = None
     number_images = {}
     life_image = None
     no_life_image = None
+    help_image = None
     lives = MAX_LIVES
 
     def __init__(self, size, score_manager):
@@ -56,6 +58,9 @@ class ScoreBoard(Surface):
                 self.blit(self.life_image, rect.move(x, self.height * i))
             x += rect.width
 
+        rect = self.help_image.get_rect()
+        self.blit(self.help_image, rect.move(0, self.height - rect.height))
+
         return self
 
     def _display_score(self, score, y):
@@ -83,6 +88,7 @@ class ScoreBoard(Surface):
         self._load_line_image()
         self._load_number_images()
         self._load_life_images()
+        self._load_help_image()
 
     def _load_title_image(self):
         self.score_image = pygame.image.load(self.score_file)
@@ -107,6 +113,12 @@ class ScoreBoard(Surface):
 
             self.number_images[i] = pygame.transform.scale(self.number_images[i], (width2, height2))
 
+    def remove_life(self):
+        self.lives -= 1
+
+    def is_game_over(self):
+        return self.lives <= 0
+
     def _load_life_images(self):
         self.life_image = pygame.image.load(self.life_file)
         self.no_life_image = pygame.image.load(self.no_life_file)
@@ -119,8 +131,13 @@ class ScoreBoard(Surface):
         self.life_image = pygame.transform.scale(self.life_image, (width2, height2))
         self.no_life_image = pygame.transform.scale(self.no_life_image, (width2, height2))
 
-    def remove_life(self):
-        self.lives -= 1
+    def _load_help_image(self):
+        self.help_image = pygame.image.load(self.help_file)
+        width1 = self.help_image.get_width()
+        height1 = self.help_image.get_height()
 
-    def is_game_over(self):
-        return self.lives <= 0
+        width2 = int(self.width)
+        height2 = int((height1 / float(width1)) * width2)
+
+        self.help_image = pygame.transform.scale(self.help_image, (width2, height2))
+

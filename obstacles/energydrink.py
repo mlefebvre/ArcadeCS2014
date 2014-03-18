@@ -7,7 +7,7 @@ from obstacles.obstacle import Obstacle
 
 
 class EnergyDrink(Obstacle):
-    RATIO = 0.09
+    RATIO = 0.06
     image_file = 'images/obstacles/energydrink.png'
     image = None
 
@@ -27,5 +27,5 @@ class EnergyDrink(Obstacle):
             height2 = int(gameboard.height * EnergyDrink.RATIO)
             width2 = int((width1 / float(height1)) * height2)
 
-            EnergyDrink.image = pygame.transform.scale(EnergyDrink.image, (width2, height2))
+            EnergyDrink.image = pygame.transform.smoothscale(EnergyDrink.image, (width2, height2))
         return EnergyDrink.image

@@ -30,12 +30,12 @@ class TopMenu(Surface):
         self.ticks += 1
         self.fill((0, 0, 0))
 
-        self.blit(self.title_image, self.title_image.get_rect())
-
         image = self.fire_images[(self.ticks / 6) % len(self.fire_files)]
         rect = image.get_rect()
         draw_pos = image.get_rect().move(0, self.height - rect.height)
         self.blit(image, draw_pos)
+
+        self.blit(self.title_image, self.title_image.get_rect().move(0, 0.1 * self.height))
 
         return self
 

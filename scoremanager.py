@@ -59,11 +59,6 @@ class ScoreManager:
         scores = sorted(scores, key=lambda tup: tup[1], reverse=True)
         return scores[:3]
 
-    def get_best_schools(self):
-        if len(self.best_schools) == 0:
-            self.update_best_schools()
-        return self.best_schools
-
     def get_score(self):
         return self.score
 
@@ -75,8 +70,5 @@ class ScoreManager:
         self.conn.execute("INSERT INTO game (school_id, score) VALUES (?, ?)", (school_id, self.score))
         self._add_game(school_id, self.score)
         self.conn.commit()
-        self.update_drunkest_school()
-        self.update_high_scores()
-        self.update_best_schools()
         self.score = 0
 

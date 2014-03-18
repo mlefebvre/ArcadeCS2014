@@ -15,4 +15,4 @@ class BeerCollisionStrategy(CollisionStrategy):
             self.game.drink()
 
             #self.game.gameboard.blur(5)
-        self.game.gameboard.effects.append(DogeText(self.game.gameboard, 4000))
+        self.game.gameboard.effects.append(DogeText(self.game.gameboard, 20000))

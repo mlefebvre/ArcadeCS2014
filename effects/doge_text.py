@@ -44,6 +44,6 @@ class DogeText(Effect):
         text = pygame.transform.rotate(text, random.randint(-15, 15))
 
         self.draw_pos = ((DogeText.word_id % 3) * 0.33 * gameboard.width,
-                         random.random() * 0.3 * gameboard.height)
+                         (DogeText.word_id / 3) * 0.15 * gameboard.height)
 
         return text

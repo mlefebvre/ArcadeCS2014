@@ -13,7 +13,7 @@ from menus.top_menu import TopMenu
 from menus.main_menu import MainMenu
 from scoremanager import ScoreManager
 from menus.game_over_menu import GameOverMenu
-
+import random
 
 WINDOW_WIDTH = 720#1080#720#
 WINDOW_HEIGHT = 600#900#600
@@ -140,5 +140,11 @@ class Game:
             self.stop_game()
 
 if __name__ == "__main__":
-    game = Game()
-    game.start()
+    #game = Game()
+    #game.start()
+    sm = ScoreManager(DB_FILE)
+    print sm.get_drunkest_schools()
+    print sm.get_total_school_score()
+    print sm.get_average_score()
+    print sm.get_high_scores()
+

@@ -7,7 +7,7 @@ import random
 from player import Player
 from obstacles.obstacle_manager import ObstacleManager
 from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
-from effects.dogetext import DogeText
+from effects.doge_text import DogeText
 
 DEFAULT_BLUR = 5
 MAX_OBSTACLES = 10

@@ -24,7 +24,7 @@ class GameBoard(Surface):
     background = None
     background_doge = None
 
-    def __init__(self, size, game):
+    def __init__(self, size, game, acceleration=ACCELERATION):
         Surface.__init__(self, size)
         self.width, self.height = size
         self.game = game
@@ -35,12 +35,13 @@ class GameBoard(Surface):
                                                 CollisionStrategyFactory(self.game),
                                                 self.player)
         self.children = [self.player, self.obstacle_manager]
+        self.acceleration = acceleration
 
     def add_child(self, child):
         self.children.append(child)
 
     def tick(self, time_passed):
-        self.obstacle_manager.accelerate_obstacles(ACCELERATION)
+        self.obstacle_manager.accelerate_obstacles(self.acceleration)
         self.obstacle_manager.create_obstacle()
         self.obstacle_manager.detect_collision()
 

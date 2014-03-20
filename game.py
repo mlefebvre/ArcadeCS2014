@@ -9,7 +9,6 @@ from menus.top_menu import TopMenu
 from menus.main_menu import MainMenu
 from scoremanager import ScoreManager
 from menus.game_over_menu import GameOverMenu
-from pump import Pump
 
 WINDOW_WIDTH = 1080#720#
 WINDOW_HEIGHT = 900#600
@@ -18,8 +17,6 @@ FPS = 60
 LEFT_KEY = pygame.K_LEFT#pygame.K_ESCAPE
 RIGHT_KEY = pygame.K_RIGHT#pygame.K_RETURN
 MODE = 0#pygame.FULLSCREEN
-PUMP_PORT = "COM3"
-
 
 DEBUG = True
 DB_FILE = "scoreboard.sqlite"
@@ -142,14 +139,5 @@ class Game:
         if self.scoreboard.is_game_over():
             self.stop_game()
 
-if __name__ == "__main__":
-    pump = Pump(PUMP_PORT)
-    with pump:
-        try:
-            pump.start()
-            game = Game(pump)
-            game.start()
-        except Exception as e:
-            print e
 
 

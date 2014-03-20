@@ -8,7 +8,7 @@ from pygame.sprite import Sprite
 COLLISION_PADDING = 0.3   # %
 SPEED = 0.3
 RATIO = 0.12
-IMMUNITY_DELAY = 1000
+IMMUNITY_DELAY = 2000
 
 class Player(Sprite):
     image_directory = 'images/player/'
@@ -126,6 +126,7 @@ class Player(Sprite):
 
     def reset(self):
         self.speed = SPEED
+        self.x = (self.gameboard.width - self.images[self.orientation][self.image_id].get_size()[0]) / 2
 
 
 

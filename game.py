@@ -3,10 +3,6 @@
 
 import pygame
 from game_state import GameState
-
-from player import Player
-from obstacles.obstacle_manager import ObstacleManager
-from collisionstrategies.collision_strategy_factory import CollisionStrategyFactory
 from gameboard import GameBoard
 from menus.scoreboard import ScoreBoard
 from menus.top_menu import TopMenu
@@ -14,7 +10,6 @@ from menus.main_menu import MainMenu
 from scoremanager import ScoreManager
 from menus.game_over_menu import GameOverMenu
 from pump import Pump
-import signal, sys
 
 WINDOW_WIDTH = 1080#720#
 WINDOW_HEIGHT = 900#600

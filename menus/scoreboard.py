@@ -16,6 +16,8 @@ class ScoreBoard(Surface):
     life_file = 'images/menus/scoreboard/beer.jpg'
     no_life_file = 'images/menus/scoreboard/empty_beer.jpg'
     help_file = 'images/menus/scoreboard/help.png'
+    drunkest_schools_file = 'images/menus/scoreboard/drunkest_schools.png'
+    cumulative_score_file = 'images/menus/scoreboard/best_cumulative_score.png'
 
     score_image = None
     line_image = None
@@ -23,14 +25,19 @@ class ScoreBoard(Surface):
     life_image = None
     no_life_image = None
     help_image = None
+    drunkest_schools_image = None
+    cumulative_score_image = None
     lives = MAX_LIVES
     ticks = 0
     update_life_display = False
+    display_count = 0
 
     def __init__(self, size, score_manager):
         Surface.__init__(self, size)
         self.background = None
         self.width, self.height = size
+        self.font = pygame.font.SysFont("Comic Sans MS", int(0.09 * self.width))
+        self.font2 = pygame.font.SysFont("Comic Sans MS", int(0.07 * self.width))
         self.score_manager = score_manager
         self._load_images()
         self._init_board()
@@ -43,6 +50,7 @@ class ScoreBoard(Surface):
         self._init_board()
 
     def _init_board(self):
+        self.display_count += 1
         self.fill((0, 0, 0))
         i = 0.015
         self.blit(self.line_image, self.line_image.get_rect().move(0, self.height * i))
@@ -50,11 +58,70 @@ class ScoreBoard(Surface):
         self.blit(self.score_image, self.score_image.get_rect().move(0, self.height * i))
         i += 0.125
         self.blit(self.line_image, self.line_image.get_rect().move(0, self.height * i))
+        i += 0.115
+        self.blit(self.line_image, self.line_image.get_rect().move(0, self.height * i))
+
+        i += 0.01
+
+        if self.display_count % 2 == 0:
+            self.display_cumulative_score(i)
+        else:
+            self.display_drunkest_schools(i)
+
+        i = 0.615
+        self.blit(self.line_image, self.line_image.get_rect().move(0, self.height * i))
 
         rect = self.help_image.get_rect()
         self.blit(self.help_image, rect.move(0, self.height - rect.height))
 
         self._display_life()
+
+    def display_drunkest_schools(self, i):
+        self.blit(self.drunkest_schools_image, self.drunkest_schools_image.get_rect().move(0, self.height * i))
+        ds = self.score_manager.get_drunkest_schools()
+        if len(ds) > 0:
+            i += 0.07
+            school = self.font.render(ds[0][0], 1, (255, 0, 0))
+            sips = self.font2.render(str(ds[0][1] * 5) + " sips", 1, (255, 255, 0))
+            self.blit(school, school.get_rect().move((self.width - school.get_rect().width) / 2, self.height * i))
+            i += 0.045
+            self.blit(sips, sips.get_rect().move((self.width - sips.get_rect().width) / 2, self.height * i))
+            if len(ds) > 1:
+                i += 0.04
+                school = self.font.render(ds[1][0], 1, (255, 0, 0))
+                sips = self.font2.render(str(ds[1][1] * 5) + " sips", 1, (255, 255, 0))
+                self.blit(school, school.get_rect().move((self.width - school.get_rect().width) / 2, self.height * i))
+                i += 0.045
+                self.blit(sips, sips.get_rect().move((self.width - sips.get_rect().width) / 2, self.height * i))
+                if len(ds) > 2:
+                    i += 0.04
+                    school = self.font.render(ds[2][0], 1, (255, 0, 0))
+                    sips = self.font2.render(str(ds[2][1] * 5) + " sips", 1, (255, 255, 0))
+                    self.blit(school, school.get_rect().move((self.width - school.get_rect().width) / 2, self.height * i))
+                    i += 0.045
+                    self.blit(sips, sips.get_rect().move((self.width - sips.get_rect().width) / 2, self.height * i))
+
+    def display_cumulative_score(self, i):
+        self.blit(self.cumulative_score_image, self.cumulative_score_image.get_rect().move(0, self.height * i))
+        cs = self.score_manager.get_cumulative_school_score()
+        if len(cs) > 0:
+            i += 0.07
+            cs1 = self.font.render(cs[0][0], 1, (255, 0, 0))
+            self.blit(cs1, cs1.get_rect().move((self.width - cs1.get_rect().width) / 2, self.height * i))
+            i += 0.045
+            self._display_score(cs[0][1], self.height * i)
+            if len(cs) > 1:
+                i += 0.04
+                cs2 = self.font.render(cs[1][0], 1, (255, 0, 0))
+                self.blit(cs2, cs2.get_rect().move((self.width - cs2.get_rect().width) / 2, self.height * i))
+                i += 0.045
+                self._display_score(cs[1][1], self.height * i)
+                if len(cs) > 2:
+                    i += 0.04
+                    cs3 = self.font.render(cs[2][0], 1, (255, 0, 0))
+                    self.blit(cs3, cs3.get_rect().move((self.width - cs3.get_rect().width) / 2, self.height * i))
+                    i += 0.045
+                    self._display_score(cs[2][1], self.height * i)
 
     def render(self):
         self.ticks += 1
@@ -105,6 +172,8 @@ class ScoreBoard(Surface):
         self._load_number_images()
         self._load_life_images()
         self._load_help_image()
+        self._load_drunkest_schools_image()
+        self._load_cumulative_score_image()
 
     def _load_title_image(self):
         self.score_image = pygame.image.load(self.score_file)
@@ -158,3 +227,22 @@ class ScoreBoard(Surface):
 
         self.help_image = pygame.transform.smoothscale(self.help_image, (width2, height2))
 
+    def _load_drunkest_schools_image(self):
+        self.drunkest_schools_image = pygame.image.load(self.drunkest_schools_file)
+        width1 = self.drunkest_schools_image.get_width()
+        height1 = self.drunkest_schools_image.get_height()
+
+        width2 = int(self.width)
+        height2 = int((height1 / float(width1)) * width2)
+
+        self.drunkest_schools_image = pygame.transform.smoothscale(self.drunkest_schools_image, (width2, height2))
+
+    def _load_cumulative_score_image(self):
+        self.cumulative_score_image = pygame.image.load(self.cumulative_score_file)
+        width1 = self.cumulative_score_image.get_width()
+        height1 = self.cumulative_score_image.get_height()
+
+        width2 = int(self.width)
+        height2 = int((height1 / float(width1)) * width2)
+
+        self.cumulative_score_image= pygame.transform.smoothscale(self.cumulative_score_image, (width2, height2))

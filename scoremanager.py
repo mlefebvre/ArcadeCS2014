@@ -41,7 +41,7 @@ class ScoreManager:
         game_count = sorted(game_count, key=lambda tup: tup[1], reverse=True)
         return game_count[:3]
 
-    def get_total_school_score(self):
+    def get_cumulative_school_score(self):
         scores = [(self.get_schools()[s], sum(g)) for s, g in self.games.items()]
         scores = sorted(scores, key=lambda tup: tup[1], reverse=True)
         return scores[:3]

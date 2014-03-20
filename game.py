@@ -15,8 +15,8 @@ WINDOW_WIDTH = 1080#720#
 WINDOW_HEIGHT = 900#600
 GAME_SIZE = int(WINDOW_WIDTH * 0.70)
 FPS = 60
-LEFT_KEY = pygame.K_LEFT
-RIGHT_KEY = pygame.K_RIGHT
+LEFT_KEY = pygame.K_LEFT#pygame.K_ESCAPE
+RIGHT_KEY = pygame.K_RIGHT#pygame.K_RETURN
 MODE = 0#pygame.FULLSCREEN
 PUMP_PORT = "COM3"
 
@@ -62,8 +62,8 @@ class Game:
             key = pygame.key.get_pressed()
             left, right = self._get_movement(key)
 
-            if key[pygame.K_ESCAPE]:
-                self.done = True
+            #if key[pygame.K_ESCAPE]:
+            #    self.done = True
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -145,11 +145,11 @@ class Game:
 if __name__ == "__main__":
     pump = Pump(PUMP_PORT)
     with pump:
-        if True:#try:
+        try:
             pump.start()
             game = Game(pump)
             game.start()
-        #except Exception as e:
-        #    print e
+        except Exception as e:
+            print e
 
 

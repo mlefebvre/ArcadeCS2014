@@ -7,10 +7,10 @@ from pygame.surface import Surface
 
 class TopMenu(Surface):
 
-    fire_files = ['images/menus/top/fire1.png',
-                  'images/menus/top/fire2.png',
-                  'images/menus/top/fire3.png',
-                  'images/menus/top/fire4.png']
+    fire_files = ['images/menus/top/fire1.gif',
+                  'images/menus/top/fire2.gif',
+                  'images/menus/top/fire3.gif',
+                  'images/menus/top/fire4.gif']
     title_file = 'images/menus/top/title.jpg'
 
     fire_images = []

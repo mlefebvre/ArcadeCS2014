@@ -11,8 +11,8 @@ from effects.doge_text import DogeText
 
 DEFAULT_BLUR = 5
 MAX_OBSTACLES = 10
-OBSTACLE_BASE_SPEED = 0.3
-ACCELERATION = 0.0001
+OBSTACLE_BASE_SPEED = 0.4
+ACCELERATION = 0.0002
 
 class GameBoard(Surface):
     background_file = 'images/background.png'

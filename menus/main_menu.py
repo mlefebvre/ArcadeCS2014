@@ -6,10 +6,10 @@ from pygame.surface import Surface
 
 
 class MainMenu(Surface):
-    fire_files = ['images/menus/top/fire1.png',
-                  'images/menus/top/fire2.png',
-                  'images/menus/top/fire3.png',
-                  'images/menus/top/fire4.png']
+    fire_files = ['images/menus/top/fire1.gif',
+                  'images/menus/top/fire2.gif',
+                  'images/menus/top/fire3.gif',
+                  'images/menus/top/fire4.gif']
     background_files = ['images/menus/mainmenu/mainmenu0.png',
                         'images/menus/mainmenu/mainmenu1.png',
                         'images/menus/mainmenu/mainmenu2.png',

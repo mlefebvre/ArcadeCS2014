@@ -12,7 +12,7 @@ OFF_STRING = "o"
 class Pump(Thread):
     running = True
     opened = False
-    open_time = 0
+    close_time = 0
     ser = None
 
     def __init__(self, port):
@@ -28,7 +28,7 @@ class Pump(Thread):
 
     def run(self):
         while self.running:
-            if self.opened and time.time() > self.open_time + DRINK_TIME:
+            if self.opened and time.time() > self.close_time:
                 self.opened = False
                 self.close()
             time.sleep(0.01)
@@ -37,9 +37,12 @@ class Pump(Thread):
         self.running = False
 
     def drink(self):
-        self.opened = True
-        self.open_time = time.time()
-        self._send_command(ON_STRING)
+        if self.opened:
+            self.close_time += DRINK_TIME
+        else:
+            self.opened = True
+            self.close_time = time.time() + DRINK_TIME
+            self._send_command(ON_STRING)
 
     def close(self):
         self._send_command(OFF_STRING)

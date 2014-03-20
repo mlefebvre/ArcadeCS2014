@@ -8,7 +8,7 @@ from pygame.sprite import Sprite
 COLLISION_PADDING = 0.3   # %
 SPEED = 0.3
 RATIO = 0.12
-IMMUNITY_DELAY = 2000
+IMMUNITY_DELAY = 1000
 
 class Player(Sprite):
     image_directory = 'images/player/'

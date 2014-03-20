@@ -55,7 +55,7 @@ class GameOverMenu(Surface):
         if len(hs) >= 2:
             hs2 = self.font.render(hs[1][0] + ":  " + str(hs[1][1]), 1, (255, 255, 0))
             rect = hs2.get_rect()
-            self.blit(hs2, rect.move(int((self.width - rect.width) / 2), int(0.635 * self.height)))
+            self.blit(hs2, rect.move(int((self.width - rect.width) / 2), int(0.622 * self.height)))
 
             if len(hs) >= 3:
                 hs3 = self.font.render(hs[2][0] + ":  " + str(hs[2][1]), 1, (255, 255, 0))

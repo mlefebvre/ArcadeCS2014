@@ -80,6 +80,8 @@ class ObstacleManager:
 
     def accelerate_obstacles(self, speed):
         self.speed += speed
+        if self.speed > 1.5:
+            self.speed = 1.5
 
     def reset(self):
         self.speed = self.default_speed

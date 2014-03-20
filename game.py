@@ -40,6 +40,7 @@ class Game:
     state = GameState.MainMenu
     pump = None
     school_id = 1
+    score_increment = 1
 
     def __init__(self, pump):
         pygame.init()
@@ -108,7 +109,8 @@ class Game:
             elif right:
                 direction = 1
 
-        self.score_manager.increment_score(1)
+        self.score_manager.increment_score(int(self.score_increment))
+        self.score_increment += 0.002
         self.gameboard.set_player_direction(direction)
         self.gameboard.tick(self.time_passed)
 
@@ -122,6 +124,7 @@ class Game:
         self.scoreboard.reset()
         self.school_id = self.score_manager.get_school_id(school)
         self.gameboard.reset()
+        self.score_increment = 1
 
     def stop_game(self):
         self.set_state(GameState.GameOver)

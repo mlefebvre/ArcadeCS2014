@@ -14,4 +14,4 @@ class VodkaCollisionStrategy(CollisionStrategy):
             self.game.gameboard.player.set_immune()
             #self.game.gameboard.blur(5)
             self.game.drink()
-        self.game.gameboard.effects.append(DogeText(self.game.gameboard, 2000))
+        self.game.gameboard.effects.append(DogeText(self.game.gameboard, 5000))

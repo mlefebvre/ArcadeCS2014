@@ -40,7 +40,7 @@ class Player(Sprite):
         if self.direction != 0:
             self.still_counter = 0
             self.counter += 1
-            if self.counter % 5 == 0:
+            if self.counter % 3 == 0:
                 self.image_id = (self.image_id + 1) % len(self.images[self.orientation])
                 # L'image 0 est pour quand on bouge pas
                 if self.image_id == 0:
@@ -80,7 +80,6 @@ class Player(Sprite):
 
     def blit(self):
         self.ticks += 1
-        #print (self.ticks / 5)
         draw_pos = self.images[self.orientation][self.image_id].get_rect().move(self.x, self.y)
         if self.is_immune() and (self.ticks / 10) % 2 == 0:
             self.gameboard.blit(self.images_drunk[self.orientation][self.image_id], draw_pos)

@@ -21,6 +21,7 @@ class HorizontalTrail(Effect):
                         gameboard,
                         duration)
         self.trails = []
+        self.trails2 = []
         self.trail_offset = 0
 
     def blit(self):
@@ -34,10 +35,12 @@ class HorizontalTrail(Effect):
 
         self.trails.append([self.image, self.entity.x + 10, self.entity.y + 10])
 
-        for trail in self.trails:
-            draw_pos = self.image.get_rect().move(self.trail_offset + trail[1],
-                                                  15 + trail[2] + 5 * math.cos((trail[1] + 40) / 20))
-            self.gameboard.blit(trail[0], draw_pos)
+        size = len(self.trails)
+        for i in range(size):
+            trail = self.trails[i]
+            x = self.trail_offset + trail[1]
+            y = 15 + trail[2] + 5 * math.cos((trail[1] + 40) / 20)
+            self.gameboard.blit(trail[0], self.image.get_rect().move(x, y))
 
     def kill(self):
         self.trails = []

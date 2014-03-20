@@ -16,7 +16,7 @@ ACCELERATION = 0.0001
 
 class GameBoard(Surface):
     background_file = 'images/background.png'
-    background_doge_file = 'images/background_doge.png'
+    background_doge_file = 'images/background_doge.jpg'
     rotate_time = 0
     blur_time = 0
     rotate_angle = 0

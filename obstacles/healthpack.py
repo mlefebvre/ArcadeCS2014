@@ -41,5 +41,5 @@ class HealthPack(Obstacle):
             height2 = int(gameboard.height * HealthPack.RATIO)
             width2 = int((width1 / float(height1)) * height2)
 
-            HealthPack.image = pygame.transform.scale(HealthPack.image, (width2, height2))
+            HealthPack.image = pygame.transform.smoothscale(HealthPack.image, (width2, height2))
         return HealthPack.image

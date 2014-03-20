@@ -54,5 +54,5 @@ class TopMenu(Surface):
     def _load_title(self):
         self.title_image = pygame.image.load(self.title_file)
         rect = self.title_image.get_rect()
-        self.title_image = pygame.transform.scale(self.title_image,
+        self.title_image = pygame.transform.smoothscale(self.title_image,
                                                   (self.width, int((rect.height / float(rect.width)) * self.width)))

@@ -52,7 +52,7 @@ class ScoreManager:
             for score in scores:
                 allgames.append((school, score))
         allgames = sorted(allgames, key=lambda tup: tup[1], reverse=True)
-        return [(self.schools[school], score) for school, score in allgames[:3]]
+        return [(self.get_schools()[school], score) for school, score in allgames][:3]
 
     def get_average_score(self):
         scores = [(self.get_schools()[s], int(sum(g)/(len(g)+0.000001))) for s, g in self.games.items()]

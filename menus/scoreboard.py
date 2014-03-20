@@ -38,6 +38,10 @@ class ScoreBoard(Surface):
     def update(self, time_passed):
         pass
 
+    def reset(self):
+        self.lives = MAX_LIVES
+        self._init_board()
+
     def _init_board(self):
         self.fill((0, 0, 0))
         i = 0.015
@@ -105,13 +109,13 @@ class ScoreBoard(Surface):
     def _load_title_image(self):
         self.score_image = pygame.image.load(self.score_file)
         rect = self.score_image.get_rect()
-        self.score_image = pygame.transform.scale(self.score_image,
+        self.score_image = pygame.transform.smoothscale(self.score_image,
                                                   (self.width, int((rect.height / float(rect.width)) * self.width)))
 
     def _load_line_image(self):
         self.line_image = pygame.image.load(self.line_file)
         rect = self.line_image.get_rect()
-        self.line_image = pygame.transform.scale(self.line_image,
+        self.line_image = pygame.transform.smoothscale(self.line_image,
                                                   (self.width, int((rect.height / float(rect.width)) * self.width)))
 
     def _load_number_images(self):
@@ -123,7 +127,7 @@ class ScoreBoard(Surface):
             width2 = int(self.width * NUMBER_RATIO)
             height2 = int((height1 / float(width1)) * width2)
 
-            self.number_images[i] = pygame.transform.scale(self.number_images[i], (width2, height2))
+            self.number_images[i] = pygame.transform.smoothscale(self.number_images[i], (width2, height2))
 
     def remove_life(self):
         self.lives -= 1
@@ -141,8 +145,8 @@ class ScoreBoard(Surface):
         width2 = int((self.width / MAX_LIVES) * 0.7)
         height2 = int((height1 / float(width1)) * width2)
 
-        self.life_image = pygame.transform.scale(self.life_image, (width2, height2))
-        self.no_life_image = pygame.transform.scale(self.no_life_image, (width2, height2))
+        self.life_image = pygame.transform.smoothscale(self.life_image, (width2, height2))
+        self.no_life_image = pygame.transform.smoothscale(self.no_life_image, (width2, height2))
 
     def _load_help_image(self):
         self.help_image = pygame.image.load(self.help_file)
@@ -152,5 +156,5 @@ class ScoreBoard(Surface):
         width2 = int(self.width)
         height2 = int((height1 / float(width1)) * width2)
 
-        self.help_image = pygame.transform.scale(self.help_image, (width2, height2))
+        self.help_image = pygame.transform.smoothscale(self.help_image, (width2, height2))
 

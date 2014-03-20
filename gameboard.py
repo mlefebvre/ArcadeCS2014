@@ -86,10 +86,10 @@ class GameBoard(Surface):
     def _draw_background(self):
         if not self.background:
             self.background = pygame.image.load(self.background_file)
-            self.background = pygame.transform.scale(self.background, (self.width, self.height))
+            self.background = pygame.transform.smoothscale(self.background, (self.width, self.height))
 
             self.background_doge = pygame.image.load(self.background_doge_file)
-            self.background_doge = pygame.transform.scale(self.background_doge, (self.width, self.height))
+            self.background_doge = pygame.transform.smoothscale(self.background_doge, (self.width, self.height))
 
         if len([e for e in self.effects if type(e) == DogeText]) == 0:
             self.blit(self.background, (0, 0))
@@ -108,4 +108,5 @@ class GameBoard(Surface):
 
     def reset(self):
         self.player.reset()
+        self.obstacle_manager.reset()
 

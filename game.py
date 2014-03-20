@@ -127,13 +127,16 @@ class Game:
     def start_game(self, school):
         self.set_state(GameState.Running)
         self.gameboard.reset()
+        self.scoreboard.reset()
         self.school_id = self.score_manager.get_school_id(school)
+        self.gameboard.reset()
 
     def stop_game(self):
         self.set_state(GameState.GameOver)
-        self.gameovermenu.set_score(self.score_manager.get_score())
-        self.controls_reversed = False
+        score = self.score_manager.get_score()
         self.score_manager.save_game(self.school_id)
+        self.gameovermenu.update(score)
+        self.controls_reversed = False
 
     def set_state(self, state):
         self.state = state
@@ -147,11 +150,11 @@ class Game:
 if __name__ == "__main__":
     pump = Pump(PUMP_PORT)
     with pump:
-        try:
+        if True:#try:
             pump.start()
             game = Game(pump)
             game.start()
-        except Exception as e:
-            print e
+        #except Exception as e:
+        #    print e
 
 

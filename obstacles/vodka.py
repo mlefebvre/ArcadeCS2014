@@ -27,5 +27,5 @@ class Vodka(Obstacle):
             height2 = int(gameboard.height * Vodka.RATIO)
             width2 = int((width1 / float(height1)) * height2)
 
-            Vodka.image = pygame.transform.scale(Vodka.image, (width2, height2))
+            Vodka.image = pygame.transform.smoothscale(Vodka.image, (width2, height2))
         return Vodka.image

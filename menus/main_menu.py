@@ -18,12 +18,16 @@ class MainMenu(Surface):
     star_file = 'images/menus/mainmenu/star.png'
     back1_file = 'images/menus/mainmenu/back1.png'
     back2_file = 'images/menus/mainmenu/back2.png'
+    arrowh_file = 'images/menus/mainmenu/arrowh.png'
+    arrowv_file = 'images/menus/mainmenu/arrowv.png'
 
     fire_images = []
     background_images = []
     star_image = None
     back1_image = None
     back2_image = None
+    arrowh_image = None
+    arrowv_image = None
 
     column_selected = False
     column_id = 0
@@ -48,8 +52,6 @@ class MainMenu(Surface):
 
     def reset(self):
         self.column_selected = False
-        self.column_id = 0
-        self.row_id = 0
 
     def update(self, select, switch):
         if switch:
@@ -59,6 +61,7 @@ class MainMenu(Surface):
         elif self.switch:
             if not self.column_selected:
                 self.column_id = (self.column_id + 1) % len(self.schools)
+                self.row_id = 0
             else:
                 self.row_id = (self.row_id + 1) % (len(self.schools[self.column_id]) + 1)
             self.switch = False
@@ -67,6 +70,7 @@ class MainMenu(Surface):
                 self.column_selected = True
                 self.select = False
             else:
+                self.select = False
                 if self.row_id == len(self.schools[self.column_id]):
                     self.column_selected = False
                     self.select = False
@@ -97,6 +101,12 @@ class MainMenu(Surface):
             self.blit(self.select_column_text, self.select_column_text.get_rect().move(int(self.width * 0.22), int(self.height * 0.02)))
         else:
             self.blit(self.select_school_text, self.select_school_text.get_rect().move(int(self.width * 0.22), int(self.height * 0.02)))
+
+        #################################### Fleches #############################
+        if self.column_selected:
+            self.blit(self.arrowv_image, self.arrowv_image.get_rect().move(int(self.width * 0.74), int(self.height * 0.86)))
+        else:
+            self.blit(self.arrowh_image, self.arrowh_image.get_rect().move(int(self.width * 0.74), int(self.height * 0.885)))
 
         ############################### Selection colonne #########################
         if not self.column_selected:
@@ -129,6 +139,17 @@ class MainMenu(Surface):
         self._load_fire()
         self._load_star()
         self._load_back()
+        self._load_arrows()
+
+    def _load_arrows(self):
+        self.arrowh_image = pygame.image.load(self.arrowh_file).convert_alpha()
+        self.arrowv_image = pygame.image.load(self.arrowv_file).convert_alpha()
+        height1 = self.arrowh_image.get_height()
+        width1 = self.arrowh_image.get_width()
+        height2 = int(self.height * 0.07)
+        width2 = int((width1 / float(height1)) * height2)
+        self.arrowh_image = pygame.transform.smoothscale(self.arrowh_image, (width2, height2))
+        self.arrowv_image = pygame.transform.smoothscale(self.arrowv_image, (height2, width2))
 
     def _load_fire(self):
         for f in self.fire_files:
@@ -141,7 +162,7 @@ class MainMenu(Surface):
         for bf in self.background_files:
             image = pygame.image.load(bf)
             rect = image.get_rect()
-            image = pygame.transform.scale(image, (self.width, int((rect.height / float(rect.width)) * self.width)))
+            image = pygame.transform.smoothscale(image, (self.width, int((rect.height / float(rect.width)) * self.width)))
             self.background_images.append(image)
 
     def _load_star(self):
@@ -152,7 +173,7 @@ class MainMenu(Surface):
         height2 = int(self.height * 0.10)
         width2 = int((width1 / float(height1)) * height2)
 
-        self.star_image = pygame.transform.scale(self.star_image, (width2, height2))
+        self.star_image = pygame.transform.smoothscale(self.star_image, (width2, height2))
 
     def _load_back(self):
         self.back1_image = pygame.image.load(self.back1_file).convert_alpha()
@@ -162,7 +183,7 @@ class MainMenu(Surface):
         height2 = int(self.height * 0.12)
         width2 = int((width1 / float(height1)) * height2)
 
-        self.back1_image = pygame.transform.scale(self.back1_image, (width2, height2))
+        self.back1_image = pygame.transform.smoothscale(self.back1_image, (width2, height2))
 
         self.back2_image = pygame.image.load(self.back2_file).convert_alpha()
         height1 = self.back2_image.get_height()
@@ -171,4 +192,4 @@ class MainMenu(Surface):
         height2 = int(self.height * 0.12)
         width2 = int((width1 / float(height1)) * height2)
 
-        self.back2_image = pygame.transform.scale(self.back2_image, (width2, height2))
+        self.back2_image = pygame.transform.smoothscale(self.back2_image, (width2, height2))

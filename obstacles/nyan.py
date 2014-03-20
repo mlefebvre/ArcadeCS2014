@@ -45,5 +45,5 @@ class Nyan(Obstacle):
             height2 = int(gameboard.height * Nyan.RATIO)
             width2 = int((width1 / float(height1)) * height2)
 
-            Nyan.image = pygame.transform.scale(Nyan.image, (width2, height2))
+            Nyan.image = pygame.transform.smoothscale(Nyan.image, (width2, height2))
         return Nyan.image

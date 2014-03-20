@@ -20,6 +20,7 @@ class ObstacleManager:
                       }
     obstacles = []
     counter = 0
+    default_speed = 0
 
     def __init__(self, gameboard, speed, max_obstacles, collision_strategy_factory, player):
         self.max_obstacles = max_obstacles
@@ -27,6 +28,7 @@ class ObstacleManager:
         self.width = gameboard.width
         self.height = gameboard.height
         self.speed = speed
+        self.default_speed = speed
         self.obstacle_group = Group()
         self.collision_strategy_factory = collision_strategy_factory
         self.player = player
@@ -78,3 +80,11 @@ class ObstacleManager:
 
     def accelerate_obstacles(self, speed):
         self.speed += speed
+
+    def reset(self):
+        self.speed = self.default_speed
+        for obstacle in self.obstacles:
+            obstacle.kill()
+            self.obstacle_group.remove(obstacle)
+        self.obstacles = []
+

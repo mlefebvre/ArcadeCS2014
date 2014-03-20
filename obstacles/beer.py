@@ -26,5 +26,5 @@ class Beer(Obstacle):
             height2 = int(gameboard.height * Beer.RATIO)
             width2 = int((width1 / float(height1)) * height2)
 
-            Beer.image = pygame.transform.scale(Beer.image, (width2, height2))
+            Beer.image = pygame.transform.smoothscale(Beer.image, (width2, height2))
         return Beer.image

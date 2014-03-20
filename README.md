@@ -1,6 +1,6 @@
 ProjetX
 =======
 
-Dégrise The Game 2: Electric Boogaloo
+Valhalla Simulator 3000
 
 Ça prend PyGame et PySerial

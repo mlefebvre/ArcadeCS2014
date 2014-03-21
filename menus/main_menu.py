@@ -50,7 +50,7 @@ class MainMenu(Surface):
         self.font2 = pygame.font.SysFont("Comic Sans MS", int(0.035 * self.width))
         self.select_column_text = self.font.render("Select column", 1, (255, 255, 0))
         self.select_school_text = self.font.render("Select school", 1, (255, 255, 0))
-        self.next_text = self.font2.render("NEXT", 1, (255, 0, 0))
+        self.move_text = self.font2.render("MOVE", 1, (255, 0, 0))
 
     def reset(self):
         self.column_selected = False
@@ -105,11 +105,11 @@ class MainMenu(Surface):
             self.blit(self.select_school_text, self.select_school_text.get_rect().move(int(self.width * 0.22), int(self.height * 0.02)))
 
         #################################### Fleches #############################
-        self.blit(self.next_text, self.next_text.get_rect().move(int(self.width * 0.743), int(self.height * 0.888)))
+        self.blit(self.move_text, self.move_text.get_rect().move(int(self.width * 0.743), int(self.height * 0.888)))
         if self.column_selected:
-            self.blit(self.arrowv_image, self.arrowv_image.get_rect().move(int(self.width * 0.85), int(self.height * 0.86)))
+            self.blit(self.arrowv_image, self.arrowv_image.get_rect().move(int(self.width * 0.858), int(self.height * 0.86)))
         else:
-            self.blit(self.arrowh_image, self.arrowh_image.get_rect().move(int(self.width * 0.85), int(self.height * 0.884)))
+            self.blit(self.arrowh_image, self.arrowh_image.get_rect().move(int(self.width * 0.858), int(self.height * 0.884)))
 
         ############################### Selection colonne #########################
         if not self.column_selected:

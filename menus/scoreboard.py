@@ -5,7 +5,7 @@ import pygame
 from pygame.surface import Surface
 
 NUMBER_RATIO = 0.09
-MAX_LIVES = 5
+MAX_LIVES = 4
 SCORE_SIZE = 6
 
 class ScoreBoard(Surface):
@@ -82,7 +82,7 @@ class ScoreBoard(Surface):
         if len(ds) > 0:
             i += 0.07
             school = self.font.render(ds[0][0], 1, (255, 0, 0))
-            sips = self.font2.render(str(ds[0][1] * 5) + " sips", 1, (255, 255, 0))
+            sips = self.font2.render(str(ds[0][1] * MAX_LIVES) + " sips", 1, (255, 255, 0))
             self.blit(school, school.get_rect().move((self.width - school.get_rect().width) / 2, self.height * i))
             i += 0.045
             self.blit(sips, sips.get_rect().move((self.width - sips.get_rect().width) / 2, self.height * i))

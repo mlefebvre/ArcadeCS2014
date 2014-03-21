@@ -10,12 +10,12 @@ from menus.main_menu import MainMenu
 from scoremanager import ScoreManager
 from menus.game_over_menu import GameOverMenu
 
-WINDOW_WIDTH = 1080#720#
+WINDOW_WIDTH = 1080
 WINDOW_HEIGHT = 900#600
 GAME_SIZE = int(WINDOW_WIDTH * 0.70)
 FPS = 60
-LEFT_KEY = pygame.K_LEFT#pygame.K_ESCAPE
-RIGHT_KEY = pygame.K_RIGHT#pygame.K_RETURN
+LEFT_KEY = pygame.K_UP#pygame.K_LEFT#
+RIGHT_KEY = pygame.K_RETURN#pygame.K_RIGHT#
 MODE = 0#pygame.FULLSCREEN
 
 DEBUG = True

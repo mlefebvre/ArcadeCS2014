@@ -49,13 +49,15 @@ class Pump(Thread):
 
     def _send_command(self, command):
         with self.lock:
-            print command
+            if self.ser:
+                self.ser.write(command)
+            else:
+                print command
 
     def __enter__(self):
         try:
             print "Opening serial port"
             self.ser = serial.Serial(self.port, 19200)
-            self.ser.open()
         except Exception as e:
             print e
             self.ser = None

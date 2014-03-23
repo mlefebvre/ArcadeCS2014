@@ -89,14 +89,14 @@ class ScoreBoard(Surface):
             if len(ds) > 1:
                 i += 0.04
                 school = self.font.render(ds[1][0], 1, (255, 0, 0))
-                sips = self.font2.render(str(ds[1][1] * 5) + " sips", 1, (255, 255, 0))
+                sips = self.font2.render(str(ds[1][1] * MAX_LIVES) + " sips", 1, (255, 255, 0))
                 self.blit(school, school.get_rect().move((self.width - school.get_rect().width) / 2, self.height * i))
                 i += 0.045
                 self.blit(sips, sips.get_rect().move((self.width - sips.get_rect().width) / 2, self.height * i))
                 if len(ds) > 2:
                     i += 0.04
                     school = self.font.render(ds[2][0], 1, (255, 0, 0))
-                    sips = self.font2.render(str(ds[2][1] * 5) + " sips", 1, (255, 255, 0))
+                    sips = self.font2.render(str(ds[2][1] * MAX_LIVES) + " sips", 1, (255, 255, 0))
                     self.blit(school, school.get_rect().move((self.width - school.get_rect().width) / 2, self.height * i))
                     i += 0.045
                     self.blit(sips, sips.get_rect().move((self.width - sips.get_rect().width) / 2, self.height * i))
@@ -109,19 +109,19 @@ class ScoreBoard(Surface):
             cs1 = self.font.render(cs[0][0], 1, (255, 0, 0))
             self.blit(cs1, cs1.get_rect().move((self.width - cs1.get_rect().width) / 2, self.height * i))
             i += 0.045
-            self._display_score(cs[0][1], self.height * i)
+            self._display_score(cs[0][1], self.height * i, SCORE_SIZE + 1)
             if len(cs) > 1:
                 i += 0.04
                 cs2 = self.font.render(cs[1][0], 1, (255, 0, 0))
                 self.blit(cs2, cs2.get_rect().move((self.width - cs2.get_rect().width) / 2, self.height * i))
                 i += 0.045
-                self._display_score(cs[1][1], self.height * i)
+                self._display_score(cs[1][1], self.height * i, SCORE_SIZE + 1)
                 if len(cs) > 2:
                     i += 0.04
                     cs3 = self.font.render(cs[2][0], 1, (255, 0, 0))
                     self.blit(cs3, cs3.get_rect().move((self.width - cs3.get_rect().width) / 2, self.height * i))
                     i += 0.045
-                    self._display_score(cs[2][1], self.height * i)
+                    self._display_score(cs[2][1], self.height * i, SCORE_SIZE + 1)
 
     def render(self):
         self.ticks += 1
@@ -146,7 +146,7 @@ class ScoreBoard(Surface):
                 self.blit(self.life_image, rect.move(x, self.height * i))
             x += rect.width
 
-    def _display_score(self, score, y):
+    def _display_score(self, score, y, size=SCORE_SIZE):
         i = 0
         x = 0.9 * self.width
 
@@ -157,14 +157,14 @@ class ScoreBoard(Surface):
             image = self.number_images[val]
             x -= image.get_rect().width
             self.blit(image, image.get_rect().move(x, y))
-            x -= ((1 - (SCORE_SIZE * NUMBER_RATIO) - 0.2)/SCORE_SIZE) * self.width
+            x -= ((1 - (size * NUMBER_RATIO) - 0.2)/size) * self.width
 
-        while i < SCORE_SIZE:
+        while i < size:
             i += 1
             image = self.number_images[0]
             x -= image.get_rect().width
             self.blit(image, image.get_rect().move(x, y))
-            x -= ((1 - (SCORE_SIZE * NUMBER_RATIO) - 0.2)/SCORE_SIZE) * self.width
+            x -= ((1 - (size * NUMBER_RATIO) - 0.2)/size) * self.width
 
     def _load_images(self):
         self._load_title_image()
